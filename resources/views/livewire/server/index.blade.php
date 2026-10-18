@@ -4,14 +4,14 @@
     </x-slot>
 
     <div class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h1 class="min-w-0 text-[24px]! leading-7! font-semibold! tracking-tight!">Servers</h1>
+        <h1 class="min-w-0 text-[24px]! leading-7! font-semibold! tracking-tight!">Máy chủ</h1>
         <div class="flex flex-wrap items-center gap-2">
             @if (isDev())
                 @can('create', App\Models\Server::class)
                     <a href="{{ route('server.transfer.import') }}" {{ wireNavigate() }}
                         class="button w-fit shrink-0 whitespace-nowrap">
                         <x-reicon name="upload" class="size-3.5" />
-                        Import server
+                        Nhập máy chủ
                         <x-status-badge label="Dev" />
                     </a>
                 @endcan
@@ -20,7 +20,7 @@
                 <a href="{{ route('server.create') }}" {{ wireNavigate() }}
                     class="button w-fit shrink-0 whitespace-nowrap button-highlighted">
                     <x-reicon name="plus" class="size-3.5" />
-                    New server
+                    Thêm máy chủ
                 </a>
             @endcan
         </div>
@@ -38,12 +38,12 @@
             $sentinelNeedsAttention = $isReady && $server->isSentinelEnabled() && $server->sentinelStatus() === 'out_of_sync';
 
             $status = match (true) {
-                $isTransferredAway && $server->isManagementDisabled() => 'Transferable',
-                $isTransferredAway => 'Transferred away',
-                $server->settings->force_disabled => 'Disabled',
-                $proxyNeedsAttention || $sentinelNeedsAttention => 'Attention required',
-                $isReady => 'Ready',
-                default => 'Validation required',
+                $isTransferredAway && $server->isManagementDisabled() => 'Có thể chuyển giao',
+                $isTransferredAway => 'Đã chuyển đi',
+                $server->settings->force_disabled => 'Đã tắt',
+                $proxyNeedsAttention || $sentinelNeedsAttention => 'Cần chú ý',
+                $isReady => 'Sẵn sàng',
+                default => 'Cần xác thực',
             };
 
             $statusType = match (true) {
@@ -83,15 +83,15 @@
         }
     }">
         @if ($servers->isEmpty())
-            <x-empty title="No servers yet"
-                description="Add a server to deploy applications, databases, and services."
+            <x-empty title="Chưa có máy chủ nào"
+                description="Thêm một máy chủ để triển khai ứng dụng, cơ sở dữ liệu và các dịch vụ."
                 icon-name="servers" />
         @else
             <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div class="relative w-full sm:max-w-sm">
                     <x-reicon name="search"
                         class="pointer-events-none absolute top-1/2 left-2.5 z-10 size-3.5 -translate-y-1/2 text-neutral-400 dark:text-fg-faint" />
-                    <input x-model.debounce.150ms="search" type="search" placeholder="Search servers"
+                    <input x-model.debounce.150ms="search" type="search" placeholder="Tìm kiếm máy chủ..."
                         class="h-8! w-full rounded-lg! border-neutral-200! bg-white! py-0! pr-8! pl-8! text-[12px]! shadow-none! placeholder:text-neutral-400 focus:border-accent! focus:ring-0! dark:border-white/[0.08]! dark:bg-white/[0.035]! dark:text-fg! dark:placeholder:text-fg-faint">
                     <button x-cloak x-show="search" x-on:click="search = ''" type="button"
                         class="absolute top-1/2 right-2 flex size-5 -translate-y-1/2 items-center justify-center rounded text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.07] dark:hover:text-fg"

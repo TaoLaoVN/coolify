@@ -65,14 +65,14 @@
         <a href="{{ route('profile') }}" {{ wireNavigate() }} class="listbox-option">
             <span class="flex items-center gap-2">
                 <x-reicon name="profile" class="size-4 opacity-80" />
-                Profile
+                Hồ sơ cá nhân
             </span>
         </a>
         <button type="button" class="listbox-option w-full" @click="appearanceOpen = !appearanceOpen"
             :aria-expanded="appearanceOpen">
             <span class="flex items-center gap-2">
                 <x-reicon name="settings" class="size-4 opacity-80" />
-                Appearance
+                Giao diện
             </span>
             <svg class="size-3.5 text-neutral-400 transition-transform dark:text-fg-faint"
                 :class="appearanceOpen && 'rotate-180'" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -85,13 +85,13 @@
         </div>
 
         <button type="button" class="listbox-option w-full" @click="toggleAutoCollapse()"
-            :aria-pressed="autoCollapse" title="Collapse the sidebar on pages that have a settings menu">
+            :aria-pressed="autoCollapse" title="Tự động thu gọn thanh bên khi vào trang có menu cài đặt">
             <span class="flex items-center gap-2">
                 <svg class="size-4 opacity-80" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <rect x="3" y="5" width="18" height="14" rx="4" stroke="currentColor" stroke-width="1.6" />
                     <path d="M16 9v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
                 </svg>
-                Auto-collapse sidebar
+                Tự động thu gọn thanh bên
             </span>
             <svg x-show="autoCollapse" x-cloak class="size-4 shrink-0 text-black dark:text-fg" viewBox="0 0 24 24"
                 fill="none" aria-hidden="true">
@@ -106,15 +106,15 @@
         <a href="https://coolify.io/docs" target="_blank" rel="noopener noreferrer" class="listbox-option">
             <span class="flex items-center gap-2">
                 <x-reicon name="documentation" class="size-4 opacity-80" />
-                Documentation
+                Tài liệu hướng dẫn
             </span>
         </a>
-        <x-modal-input title="How can we help?">
+        <x-modal-input title="Chúng tôi có thể giúp gì cho bạn?">
             <x-slot:content>
                 <div class="listbox-option cursor-pointer" @click="closePanel()">
                     <span class="flex items-center gap-2">
                         <x-reicon name="feedback" class="size-4 opacity-80" />
-                        Feedback
+                        Góp ý & Báo lỗi
                     </span>
                 </div>
             </x-slot:content>
@@ -125,7 +125,7 @@
                 class="listbox-option">
                 <span class="flex items-center gap-2">
                     <x-reicon name="sponsor" class="size-4 text-pink-500" />
-                    Sponsor us
+                    Ủng hộ tác giả
                 </span>
             </a>
         @endif
@@ -137,7 +137,7 @@
             <button type="submit" class="listbox-option w-full text-left text-error dark:text-error">
                 <span class="flex items-center gap-2">
                     <x-reicon name="logout" class="size-4 opacity-90" />
-                    Log out
+                    Đăng xuất
                 </span>
             </button>
         </form>

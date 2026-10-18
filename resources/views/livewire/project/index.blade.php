@@ -5,15 +5,15 @@
 
     <div x-data="projectsIndex()" class="w-full">
         <header class="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h1 class="min-w-0 truncate text-[24px]! leading-7! font-semibold! tracking-tight!">Projects</h1>
+            <h1 class="min-w-0 truncate text-[24px]! leading-7! font-semibold! tracking-tight!">Dự án</h1>
             @can('createAnyResource')
                 <div class="w-fit shrink-0">
-                    <x-modal-input title="New Project">
+                    <x-modal-input title="Tạo dự án mới">
                         <x-slot:content>
                             <button type="button"
                                 class="button button-highlighted">
                                 <x-reicon name="plus" class="size-3.5" />
-                                New project
+                                Tạo dự án mới
                             </button>
                         </x-slot:content>
                         <livewire:project.add-empty />
@@ -23,13 +23,13 @@
         </header>
 
         @if ($projects->isEmpty())
-            <x-empty title="No projects yet"
-                description="Create a project to organize your environments and resources."
+            <x-empty title="Chưa có dự án nào"
+                description="Tạo một dự án để quản lý môi trường và tài nguyên của bạn."
                 icon-name="projects">
                 <x-slot:contents>
                     <a class="text-[12px] font-medium text-coollabs hover:underline dark:text-warning"
                         href="{{ route('onboarding') }}" {{ wireNavigate() }}>
-                        Open onboarding
+                        Mở hướng dẫn bắt đầu
                     </a>
                 </x-slot:contents>
             </x-empty>
@@ -39,7 +39,7 @@
                     <x-reicon name="search"
                         class="pointer-events-none absolute top-1/2 left-2.5 z-10 size-3.5 -translate-y-1/2 text-neutral-400 dark:text-fg-faint" />
                     <input x-model.debounce.150ms="search" x-on:input="page = 1" type="search"
-                        placeholder="Search projects"
+                        placeholder="Tìm kiếm dự án..."
                         class="h-8! w-full rounded-lg! border-neutral-200! bg-white! py-0! pr-8! pl-8! text-[12px]! shadow-none! placeholder:text-neutral-400 focus:border-accent! focus:ring-0! dark:border-white/[0.08]! dark:bg-white/[0.035]! dark:text-fg! dark:placeholder:text-fg-faint">
                     <button x-cloak x-show="search" x-on:click="search = ''; page = 1" type="button"
                         class="absolute top-1/2 right-2 flex size-5 -translate-y-1/2 items-center justify-center rounded text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.07] dark:hover:text-fg"
@@ -58,7 +58,7 @@
                                         stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
                                         stroke-linejoin="round" />
                                 </svg>
-                                Sort
+                                Sắp xếp
                             </button>
                         </x-slot:trigger>
                             <template x-for="option in sortOptions" :key="option.value">
