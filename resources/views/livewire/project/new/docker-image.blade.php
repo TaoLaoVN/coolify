@@ -10,7 +10,7 @@
                 <x-forms.button type="submit" isHighlighted>Create application</x-forms.button>
             </div>
             <div class="application-settings-section-body space-y-4">
-                <x-forms.input id="imageName" label="Image name"
+                <x-forms.input id="imageName" label="Tên Docker Image"
                     placeholder="nginx, ghcr.io/user/app:v1.2.3, or nginx:stable@sha256:…"
                     helper="Paste a complete image reference, or enter a name and use one of the optional fields below."
                     required autofocus />

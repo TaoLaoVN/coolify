@@ -26,13 +26,13 @@
                         @if (str($application->status)->startsWith('exited'))
                             <x-slot:main wire:click="deploy">
                                 <x-reicon name="play-circle" class="size-3.5" />
-                                {{ $application->stoppedAfterRestartLimit() ? 'Retry deployment' : 'Deploy' }}
+                                {{ $application->stoppedAfterRestartLimit() ? 'Thử triển khai lại' : 'Triển khai' }}
                             </x-slot:main>
                             @if (!$application->destination->server->isSwarm())
                                 <button type="button" class="listbox-option justify-start! gap-2.5!" wire:click="deploy(true)"
                                     @click="open = false" role="menuitem">
                                     <x-reicon name="refresh" class="size-3.5 opacity-70" />
-                                    {{ $application->stoppedAfterRestartLimit() ? 'Retry deployment (without cache)' : 'Deploy (without cache)' }}
+                                    {{ $application->stoppedAfterRestartLimit() ? 'Thử triển khai lại (không cache)' : 'Triển khai (không cache)' }}
                                 </button>
                             @endif
                             @if ($application->container_present !== false)
@@ -98,7 +98,7 @@
                     ]" :confirmWithText="false" :confirmWithPassword="false"
                     step1ButtonText="Continue" step2ButtonText="Confirm">
                     <x-slot:trigger>
-                        <button id="application-mobile-stop-trigger" type="button">Stop</button>
+                        <button id="application-mobile-stop-trigger" type="button">Dừng</button>
                     </x-slot:trigger>
                 </x-modal-confirmation>
                 <x-modal-confirmation title="Confirm Application Restart?" buttonTitle="Restart"
@@ -107,7 +107,7 @@
                     ]" :confirmWithText="false" :confirmWithPassword="false"
                     step2ButtonText="Confirm">
                     <x-slot:trigger>
-                        <button id="application-mobile-restart-trigger" type="button">Restart</button>
+                        <button id="application-mobile-restart-trigger" type="button">Khởi động lại</button>
                     </x-slot:trigger>
                 </x-modal-confirmation>
             </div>
@@ -133,13 +133,13 @@
                                 @if (str($application->status)->startsWith('exited'))
                                     <x-slot:main wire:click="deploy">
                                         <x-reicon name="play-circle" class="size-3.5" />
-                                        {{ $application->stoppedAfterRestartLimit() ? 'Retry deployment' : 'Deploy' }}
+                                        {{ $application->stoppedAfterRestartLimit() ? 'Thử triển khai lại' : 'Triển khai' }}
                                     </x-slot:main>
                                     @if (!$application->destination->server->isSwarm())
                                         <button type="button" class="listbox-option justify-start! gap-2.5!" wire:click="deploy(true)"
                                             @click="open = false" role="menuitem">
                                             <x-reicon name="refresh" class="size-3.5 opacity-70" />
-                                            {{ $application->stoppedAfterRestartLimit() ? 'Retry deployment (without cache)' : 'Deploy (without cache)' }}
+                                            {{ $application->stoppedAfterRestartLimit() ? 'Thử triển khai lại (không cache)' : 'Triển khai (không cache)' }}
                                         </button>
                                     @endif
                                     @if ($application->container_present !== false)

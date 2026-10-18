@@ -4,14 +4,14 @@
         <section class="application-settings-section">
             <div class="application-settings-section-header">
                 <div>
-                    <h2>Public Git repository</h2>
-                    <p>Connect a public repository over HTTPS and inspect its default branch.</p>
+                    <h2>Kho mã nguồn Git công khai</h2>
+                    <p>Kết nối kho lưu trữ công khai qua HTTPS và kiểm tra nhánh mặc định.</p>
                 </div>
             </div>
             <div class="application-settings-section-body">
                 <div class="flex flex-col gap-2 sm:flex-row sm:items-end">
                     <div class="min-w-0 flex-1">
-                        <x-forms.input required id="repository_url" label="Repository URL"
+                        <x-forms.input required id="repository_url" label="Đường dẫn kho lưu trữ (URL)"
                             helper="{!! __('repository.url') !!}" placeholder="https://github.com/owner/repository"
                             autofocus />
                     </div>
@@ -24,7 +24,7 @@
                             <path class="opacity-75" d="M21 12a9 9 0 0 0-9-9" stroke="currentColor"
                                 stroke-width="3" stroke-linecap="round" />
                         </svg>
-                        Check repository
+                        Kiểm tra kho lưu trữ
                     </x-forms.button>
                 </div>
                 <p class="mt-2 text-xs text-neutral-500 dark:text-fg-dim">
@@ -43,10 +43,10 @@
             <section class="application-settings-section">
                 <div class="application-settings-section-header">
                     <div>
-                        <h2>Build configuration</h2>
-                        <p>Choose how Coolify builds and runs this repository.</p>
+                        <h2>Cấu hình Build & Triển khai</h2>
+                        <p>Chọn cách Coolify biên dịch và khởi chạy dự án này.</p>
                     </div>
-                    <x-forms.button type="submit" isHighlighted>Continue</x-forms.button>
+                    <x-forms.button type="submit" isHighlighted>Tiếp tục</x-forms.button>
                 </div>
                 <div class="application-settings-section-body space-y-5">
                     @if ($rate_limit_remaining && $rate_limit_reset)
@@ -57,7 +57,7 @@
                     @endif
 
                     <div class="grid gap-4 sm:grid-cols-2">
-                        <x-forms.input id="git_branch" label="Branch"
+                        <x-forms.input id="git_branch" label="Nhánh (Branch)"
                             :disabled="$git_source !== 'other'"
                             helper="You can choose another branch after the application is created." />
                         <x-forms.listbox id="build_pack" label="Build pack" required live :options="[

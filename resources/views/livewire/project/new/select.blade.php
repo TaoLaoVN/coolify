@@ -1,7 +1,7 @@
 <div class="application-settings-form" x-data x-init="$wire.loadServers">
     <div x-data="searchResources()">
         @if ($current_step === 'type')
-            <x-application.settings-section title="Choose a resource" flush>
+            <x-application.settings-section title="Chọn loại tài nguyên" flush>
                 <x-slot:actions>
                     <button type="button" class="button" :disabled="loading" @click="loadResources">
                         <x-reicon name="refresh" class="size-3.5" />
@@ -14,7 +14,7 @@
                         <x-reicon name="search"
                             class="pointer-events-none absolute top-1/2 left-2.5 z-10 size-3.5 -translate-y-1/2 text-neutral-400 dark:text-fg-faint" />
                         <input autocomplete="off" x-ref="searchInput" x-model="search" type="search"
-                            placeholder="Search resources"
+                            placeholder="Tìm kiếm tài nguyên..."
                             class="h-8! w-full rounded-lg! border-neutral-200! bg-white! py-0! pr-8! pl-8! text-[12px]! shadow-none! placeholder:text-neutral-400 focus:border-accent! focus:ring-0! dark:border-white/[0.08]! dark:bg-white/[0.035]! dark:text-fg! dark:placeholder:text-fg-faint"
                             @keydown.window.slash.prevent="$refs.searchInput.focus()">
                     </div>
@@ -28,7 +28,7 @@
                             </button></x-slot:trigger>
                                 <div
                                     class="px-2 py-1 text-[10px] font-semibold tracking-wide text-neutral-400 uppercase dark:text-fg-faint">
-                                    Resource type
+                                    Loại tài nguyên
                                 </div>
                                 <template x-for="option in resourceTypeOptions" :key="option.value">
                                     <button type="button" class="listbox-option" role="option"
@@ -47,9 +47,9 @@
                                 @click="categoryOpen = !categoryOpen; $nextTick(() => categoryOpen && $refs.categorySearchInput.focus())"
                                 aria-haspopup="listbox" aria-controls="resource-category-options"
                                 :aria-expanded="categoryOpen"
-                                :title="selectedCategory === '' ? 'All categories' : selectedCategory">
+                                :title="selectedCategory === '' ? 'Tất cả danh mục' : selectedCategory">
                                 <span class="listbox-trigger-label capitalize"
-                                    x-text="selectedCategory === '' ? 'All categories' : selectedCategory"></span>
+                                    x-text="selectedCategory === '' ? 'Tất cả danh mục' : selectedCategory"></span>
                                 <svg class="size-3.5 shrink-0 opacity-60" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -62,7 +62,7 @@
                                 class="listbox-panel left-auto! right-0! z-[90]! min-w-56!">
                                 <div class="border-b border-neutral-200 p-2 dark:border-white/[0.08]">
                                     <input type="search" x-ref="categorySearchInput" x-model="categorySearch"
-                                        placeholder="Search categories"
+                                        placeholder="Tìm kiếm danh mục..."
                                         class="h-8! w-full rounded-md! border-neutral-200! bg-neutral-50! px-2.5! py-0! text-[12px]! shadow-none! focus:ring-0! dark:border-white/[0.08]! dark:bg-white/[0.04]! dark:text-fg!"
                                         @click.stop>
                                 </div>
@@ -70,7 +70,7 @@
                                     <button type="button" class="listbox-option" role="option"
                                         :aria-selected="selectedCategory === ''"
                                         @click="selectedCategory = ''; categorySearch = ''; categoryOpen = false">
-                                        <span>All categories</span>
+                                        <span>Tất cả danh mục</span>
                                         <x-reicon name="check-circle" class="size-3.5 text-black dark:text-fg"
                                             x-show="selectedCategory === ''" />
                                     </button>
@@ -102,7 +102,7 @@
                     <div class="application-settings-section-header">
                         <div class="flex items-center gap-2">
                             <x-reicon name="globe" class="size-4 text-neutral-400 dark:text-fg-faint" />
-                            <h2>Applications</h2>
+                            <h2>Ứng dụng</h2>
                         </div>
                     </div>
                     <div
@@ -131,7 +131,7 @@
                                         <h3 class="truncate text-[13px] font-semibold text-black dark:text-fg"
                                             x-text="application.name"></h3>
                                         <p class="mt-0.5 text-[11px] text-neutral-500 dark:text-fg-faint">
-                                            Git source
+                                            Nguồn Git
                                         </p>
                                     </div>
                                 </div>
@@ -146,7 +146,7 @@
                                         Docs
                                     </a>
                                     <span class="button button-highlighted ml-auto">
-                                        Deploy
+                                        Triển khai
                                         <x-reicon name="arrow-right" class="size-3.5" />
                                     </span>
                                 </div>
@@ -167,7 +167,7 @@
                                         <h3 class="truncate text-[13px] font-semibold text-black dark:text-fg"
                                             x-text="application.name"></h3>
                                         <p class="mt-0.5 text-[11px] text-neutral-500 dark:text-fg-faint">
-                                            Docker source
+                                            Nguồn Docker
                                         </p>
                                     </div>
                                 </div>
@@ -182,7 +182,7 @@
                                         Docs
                                     </a>
                                     <span class="button button-highlighted ml-auto">
-                                        Deploy
+                                        Triển khai
                                         <x-reicon name="arrow-right" class="size-3.5" />
                                     </span>
                                 </div>
@@ -197,7 +197,7 @@
                     <div class="application-settings-section-header">
                         <div class="flex items-center gap-2">
                             <x-reicon name="database" class="size-4 text-neutral-400 dark:text-fg-faint" />
-                            <h2>Databases</h2>
+                            <h2>Cơ sở dữ liệu</h2>
                         </div>
                     </div>
                     <div
@@ -250,7 +250,7 @@
                                         Website
                                     </a>
                                     <span class="button button-highlighted ml-auto">
-                                        Deploy
+                                        Triển khai
                                         <x-reicon name="arrow-right" class="size-3.5" />
                                     </span>
                                 </div>
@@ -265,7 +265,7 @@
                     <div class="application-settings-section-header" x-init="loadResources">
                         <div class="flex items-center gap-2">
                             <x-reicon name="layers" class="size-4 text-neutral-400 dark:text-fg-faint" />
-                            <h2>Services</h2>
+                            <h2>Dịch vụ 1-Click</h2>
                         </div>
                         <div class="flex flex-wrap items-center gap-2">
                             <div x-show="serviceTemplatesLastUpdated"
@@ -322,7 +322,7 @@
                                             Website
                                         </a>
                                         <span class="button button-highlighted ml-auto">
-                                            Deploy
+                                            Triển khai
                                             <x-reicon name="arrow-right" class="size-3.5" />
                                         </span>
                                     </div>
@@ -347,19 +347,19 @@
                         resourceType: 'all',
                         resourceTypeOptions: [{
                                 value: 'all',
-                                label: 'All resources'
+                                label: 'Tất cả tài nguyên'
                             },
                             {
                                 value: 'applications',
-                                label: 'Applications'
+                                label: 'Ứng dụng'
                             },
                             {
                                 value: 'databases',
-                                label: 'Databases'
+                                label: 'Cơ sở dữ liệu'
                             },
                             {
                                 value: 'services',
-                                label: 'Services'
+                                label: 'Dịch vụ'
                             }
                         ],
                         filterOpen: false,
@@ -614,7 +614,7 @@
         @endif
     </div>
     @if ($current_step === 'servers')
-        <x-application.settings-section title="Select a server"
+        <x-application.settings-section title="Chọn máy chủ"
             description="Choose the machine that will host this resource." flush>
             @if ($onlyBuildServerAvailable)
                 <x-callout type="warning" title="No deployment server" class="m-4">
@@ -675,7 +675,7 @@
         </x-application.settings-section>
     @endif
     @if ($current_step === 'destinations')
-        <x-application.settings-section title="Select a destination"
+        <x-application.settings-section title="Chọn điểm triển khai"
             description="Destinations separate resources by Docker network. Use the default destination when unsure."
             flush>
             <div class="divide-y divide-neutral-200 dark:divide-white/[0.07]">

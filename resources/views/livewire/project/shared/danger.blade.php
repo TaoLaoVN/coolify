@@ -15,23 +15,23 @@
             start again when the server is back.
         </x-callout>
     @endif
-    <x-application.settings-section id="danger-zone-section" title="Danger zone"
-        helper="Destructive resource actions cannot be undone.">
-        <x-danger-zone title="Delete {{ $resourceLabel }}">
+    <x-application.settings-section id="danger-zone-section" title="Vùng nguy hiểm"
+        helper="Các thao tác xóa tài nguyên không thể khôi phục lại.">
+        <x-danger-zone title="Xóa {{ $resourceLabel }}">
                     <p>
                         Permanently delete
                         <strong class="font-semibold text-black dark:text-fg">{{ $resourceName }}</strong>,
                         stop its containers, and remove the selected Docker resources and configuration.
                     </p>
                     <ul class="space-y-1 text-xs">
-                        <li>• Active deployments will be stopped.</li>
-                        <li>• Selected volumes and stored data may be permanently removed.</li>
-                        <li>• This {{ $resourceLabel }} cannot be restored from Coolify after deletion.</li>
+                        <li>• Các tiến trình triển khai đang chạy sẽ bị dừng lại.</li>
+                        <li>• Các ổ đĩa lưu trữ và dữ liệu đã chọn có thể bị xóa vĩnh viễn.</li>
+                        <li>• Không thể khôi phục {{ $resourceLabel }} sau khi xóa khỏi Coolify.</li>
                     </ul>
                 <x-slot:action>
                     @if ($canDelete)
-                        <x-modal-confirmation title="Delete {{ $resourceLabel }}?"
-                            buttonTitle="Delete {{ $resourceLabel }}"
+                        <x-modal-confirmation title="Xóa vĩnh viễn {{ $resourceLabel }}?"
+                            buttonTitle="Xóa {{ $resourceLabel }}"
                             isErrorButton submitAction="delete" :checkboxes="$checkboxes"
                             :actions="['Permanently delete this resource and its selected Docker resources.']"
                             confirmationText="{{ $resourceName }}"
@@ -52,7 +52,7 @@
                         @endif
                     @else
                         <x-forms.button isError disabled tooltip="You do not have permission to delete this resource.">
-                            Delete {{ $resourceLabel }}
+                            Xóa {{ $resourceLabel }}
                         </x-forms.button>
                     @endif
                 </x-slot:action>
