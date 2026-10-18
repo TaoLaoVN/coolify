@@ -1,6 +1,6 @@
 <div>
     <x-slot:title>
-        Discord Notifications | Coolify
+        Thông báo Discord | Coolify
     </x-slot>
 
     <x-notification.settings-layout>
@@ -8,7 +8,7 @@
         <form wire:submit="submit">
             <x-unsaved-bar action="submit" />
             <x-application.settings-section title="Discord"
-                description="Send team notifications to a Discord channel through an incoming webhook.">
+                description="Gửi thông báo nhóm đến kênh Discord thông qua incoming webhook.">
                 <x-slot:actions>
                     <x-notification.channel-actions :enabled="$discordEnabled" enabledProperty="discordEnabled"
                         toggleMethod="instantSaveDiscordEnabled" :canUpdate="auth()->user()->can('update', $settings)"
@@ -16,19 +16,19 @@
                 </x-slot:actions>
 
                 <div class="grid gap-4 lg:grid-cols-2">
-                    <x-forms.listbox canGate="update" :canResource="$settings" id="discordPingEnabled" label="Critical event mention"
-                        helper="Mention @here when a critical event occurs."
+                    <x-forms.listbox canGate="update" :canResource="$settings" id="discordPingEnabled" label="Nhắc đến khi có sự kiện khẩn cấp"
+                        helper="Nhắc @here khi xảy ra sự kiện quan trọng/khẩn cấp."
                         onChange="instantSaveDiscordPingEnabled"
                         :disabled="!auth()->user()->can('update', $settings)" :options="[
-                            ['value' => true, 'label' => 'Mention @here'],
-                            ['value' => false, 'label' => 'Do not mention'],
+                            ['value' => true, 'label' => 'Nhắc @here'],
+                            ['value' => false, 'label' => 'Không nhắc'],
                         ]" />
                     <div class="lg:col-span-2">
                         @can('update', $settings)
                             <x-forms.input type="password" required id="discordWebhookUrl" label="Webhook URL"
-                                helper="Create an incoming webhook in your Discord server settings." />
+                                helper="Tạo một incoming webhook trong phần cài đặt kênh máy chủ Discord của bạn." />
                         @else
-                            <x-forms.input disabled label="Webhook URL" value="Hidden (only admins can view)" />
+                            <x-forms.input disabled label="Webhook URL" value="Đã ẩn (chỉ quản trị viên mới xem được)" />
                         @endcan
                     </div>
                 </div>

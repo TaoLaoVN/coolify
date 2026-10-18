@@ -1,9 +1,9 @@
 <x-emails.layout>
-Scheduled task ({{ $task->name }}) completed successfully with the following output:
+Tác vụ định kỳ ({{ $task->name }}) đã hoàn thành thành công với kết quả sau:
 
 <pre>
 {{ $output }}
 </pre>
 
-Click [here]({{ $url }}) to view the task.
+Nhấp vào [đây]({{ $url }}) để xem tác vụ.
 </x-emails.layout>

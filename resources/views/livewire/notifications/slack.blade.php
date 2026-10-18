@@ -1,6 +1,6 @@
 <div>
     <x-slot:title>
-        Slack Notifications | Coolify
+        Thông báo Slack | Coolify
     </x-slot>
 
     <x-notification.settings-layout>
@@ -8,7 +8,7 @@
         <form wire:submit="submit">
             <x-unsaved-bar action="submit" />
             <x-application.settings-section title="Slack"
-                description="Send team notifications to Slack through an incoming webhook.">
+                description="Gửi thông báo nhóm đến kênh Slack thông qua incoming webhook.">
                 <x-slot:actions>
                     <x-notification.channel-actions :enabled="$slackEnabled" enabledProperty="slackEnabled"
                         toggleMethod="instantSaveSlackEnabled" :canUpdate="auth()->user()->can('update', $settings)"
@@ -19,9 +19,9 @@
                     <div class="lg:col-span-2">
                         @can('update', $settings)
                             <x-forms.input type="password" required id="slackWebhookUrl" label="Webhook URL"
-                                helper="Create an incoming webhook in your Slack app settings." />
+                                helper="Tạo một incoming webhook trong phần cài đặt ứng dụng Slack của bạn." />
                         @else
-                            <x-forms.input disabled label="Webhook URL" value="Hidden (only admins can view)" />
+                            <x-forms.input disabled label="Webhook URL" value="Đã ẩn (chỉ quản trị viên mới xem được)" />
                         @endcan
                     </div>
                 </div>

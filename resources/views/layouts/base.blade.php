@@ -327,22 +327,29 @@
                 } else {
                     window.location.reload();
                 }
-            })
+            });
+            const translateTitle = (title) => {
+                if (title === 'Info') return 'Thông tin';
+                if (title === 'Error') return 'Lỗi';
+                if (title === 'Warning') return 'Cảnh báo';
+                if (title === 'Success') return 'Thành công';
+                return title;
+            };
             window.Livewire.on('info', (message) => {
                 if (typeof message === 'string') {
-                    window.toast('Info', {
+                    window.toast('Thông tin', {
                         type: 'info',
                         description: message,
                     })
                     return;
                 }
                 if (message.length == 1) {
-                    window.toast('Info', {
+                    window.toast('Thông tin', {
                         type: 'info',
                         description: message[0],
                     })
                 } else if (message.length == 2) {
-                    window.toast(message[0], {
+                    window.toast(translateTitle(message[0]), {
                         type: 'info',
                         description: message[1],
                     })
@@ -350,19 +357,19 @@
             })
             window.Livewire.on('error', (message) => {
                 if (typeof message === 'string') {
-                    window.toast('Error', {
+                    window.toast('Lỗi', {
                         type: 'danger',
                         description: message,
                     })
                     return;
                 }
                 if (message.length == 1) {
-                    window.toast('Error', {
+                    window.toast('Lỗi', {
                         type: 'danger',
                         description: message[0],
                     })
                 } else if (message.length == 2) {
-                    window.toast(message[0], {
+                    window.toast(translateTitle(message[0]), {
                         type: 'danger',
                         description: message[1],
                     })
@@ -370,19 +377,19 @@
             })
             window.Livewire.on('warning', (message) => {
                 if (typeof message === 'string') {
-                    window.toast('Warning', {
+                    window.toast('Cảnh báo', {
                         type: 'warning',
                         description: message,
                     })
                     return;
                 }
                 if (message.length == 1) {
-                    window.toast('Warning', {
+                    window.toast('Cảnh báo', {
                         type: 'warning',
                         description: message[0],
                     })
                 } else if (message.length == 2) {
-                    window.toast(message[0], {
+                    window.toast(translateTitle(message[0]), {
                         type: 'warning',
                         description: message[1],
                     })
@@ -390,19 +397,19 @@
             })
             window.Livewire.on('success', (message) => {
                 if (typeof message === 'string') {
-                    window.toast('Success', {
+                    window.toast('Thành công', {
                         type: 'success',
                         description: message,
                     })
                     return;
                 }
                 if (message.length == 1) {
-                    window.toast('Success', {
+                    window.toast('Thành công', {
                         type: 'success',
                         description: message[0],
                     })
                 } else if (message.length == 2) {
-                    window.toast(message[0], {
+                    window.toast(translateTitle(message[0]), {
                         type: 'success',
                         description: message[1],
                     })

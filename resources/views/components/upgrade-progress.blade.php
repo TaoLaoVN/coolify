@@ -11,10 +11,10 @@
 --}}
 @php
     $steps = [
-        1 => 'Preparing',
-        2 => 'Helper',
-        3 => 'Image',
-        4 => 'Restart',
+        1 => 'Chuẩn bị',
+        2 => 'Bộ hỗ trợ',
+        3 => 'Tải ảnh',
+        4 => 'Khởi động lại',
     ];
 @endphp
 

@@ -1,7 +1,7 @@
 <x-emails.layout>
-Database backup for {{ $name }} @if($database_name)(db:{{ $database_name }})@endif with frequency of {{ $frequency }} was FAILED.
+Sao lưu cơ sở dữ liệu cho {{ $name }} @if($database_name)(db:{{ $database_name }})@endif với tần suất {{ $frequency }} ĐÃ THẤT BẠI.
 
-### Reason
+### Lý do lỗi
 
 {{ $output }}
 </x-emails.layout>

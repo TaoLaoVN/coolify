@@ -1,6 +1,6 @@
 <div>
     <x-slot:title>
-        API Tokens | Coolify
+        Mã xác thực API | Coolify
     </x-slot>
 
     <x-security.settings-layout>
@@ -9,43 +9,43 @@
             $expirationList = collect($expirationOptions)
                 ->map(fn ($label, $days) => ['value' => (string) $days, 'label' => $label])
                 ->values()
-                ->push(['value' => '', 'label' => 'Never'])
+                ->push(['value' => '', 'label' => 'Không bao giờ'])
                 ->all();
         @endphp
 
         <div class="application-settings-form flex flex-col gap-6">
             <x-api-disabled-callout
-                message="REST API requests are rejected. Tokens still authenticate the MCP endpoint when the MCP server is enabled." />
+                message="Các yêu cầu REST API bị từ chối. Token vẫn có thể xác thực điểm cuối MCP khi máy chủ MCP được bật." />
 
             @can('create', App\Models\PersonalAccessToken::class)
                 <form wire:submit="addNewToken">
-                    <x-application.settings-section title="New API token">
+                    <x-application.settings-section title="Tạo mã token API mới">
                         <x-slot:actions>
                             <button type="submit"
                                 class="button button-highlighted">
                                 <x-reicon name="plus" class="size-3.5" />
-                                Create token
+                                Tạo mã token
                             </button>
                         </x-slot:actions>
 
                         <div class="grid gap-4 lg:grid-cols-2">
-                            <x-forms.input required id="description" label="Description"
-                                placeholder="CI deployment token" />
-                            <x-forms.listbox id="expiresInDays" label="Expires in"
+                            <x-forms.input required id="description" label="Mô tả"
+                                placeholder="Token triển khai CI/CD" />
+                            <x-forms.listbox id="expiresInDays" label="Hết hạn sau"
                                 :options="$expirationList" />
                         </div>
 
                         <div class="mt-5 border-t border-neutral-200 pt-4 dark:border-white/[0.08]">
                             <div class="mb-3 flex items-center gap-2">
-                                <h4 class="text-[12px] font-semibold text-black dark:text-fg">Permissions</h4>
-                                <x-helper helper="Only grant the abilities this token needs." />
+                                <h4 class="text-[12px] font-semibold text-black dark:text-fg">Quyền hạn</h4>
+                                <x-helper helper="Chỉ cấp các quyền hạn mà token này thực sự cần." />
                             </div>
                             <div class="relative" x-data="{ permissionsOpen: false }"
                                 @click.outside="permissionsOpen = false" @keydown.escape.window="permissionsOpen = false">
                                 <button type="button" class="listbox-trigger" @click="permissionsOpen = !permissionsOpen"
                                     aria-haspopup="listbox" :aria-expanded="permissionsOpen">
                                     <span class="truncate">
-                                        Selected permissions: {{ collect($permissions)->map(fn ($permission) => str($permission)->replace(':', ' ')->headline())->join(', ') }}
+                                        Quyền đã chọn: {{ collect($permissions)->map(fn ($permission) => str($permission)->replace(':', ' ')->headline())->join(', ') }}
                                     </span>
                                     <x-reicon name="chevron-down" class="size-3.5 shrink-0 opacity-60" />
                                 </button>
@@ -55,34 +55,34 @@
                                     <div class="listbox-option p-0!">
                                         <x-forms.checkbox id="permission-root" label="Root" fullWidth
                                             wire:model.live="permissions" domValue="root"
-                                            helper="Full access to every API operation."
+                                            helper="Toàn quyền truy cập mọi hoạt động API."
                                             :checked="in_array('root', $permissions)" :disabled="!$canUseRootPermissions" />
                                     </div>
                                     <div class="listbox-option p-0!">
-                                        <x-forms.checkbox id="permission-write" label="Write" fullWidth
+                                        <x-forms.checkbox id="permission-write" label="Ghi (Write)" fullWidth
                                             wire:model.live="permissions" domValue="write"
-                                            helper="Create and update resources."
+                                            helper="Tạo và cập nhật tài nguyên."
                                             :checked="in_array('write', $permissions)"
                                             :disabled="in_array('root', $permissions) || !$canUseWritePermissions" />
                                     </div>
                                     <div class="listbox-option p-0!">
-                                        <x-forms.checkbox id="permission-deploy" label="Deploy" fullWidth
+                                        <x-forms.checkbox id="permission-deploy" label="Triển khai (Deploy)" fullWidth
                                             wire:model.live="permissions" domValue="deploy"
-                                            helper="Trigger deployments through webhooks."
+                                            helper="Kích hoạt triển khai thông qua webhook."
                                             :checked="in_array('deploy', $permissions)"
                                             :disabled="in_array('root', $permissions) || !$canUseDeployPermissions" />
                                     </div>
                                     <div class="listbox-option p-0!">
-                                        <x-forms.checkbox id="permission-read" label="Read" fullWidth
+                                        <x-forms.checkbox id="permission-read" label="Đọc (Read)" fullWidth
                                             wire:model.live="permissions" domValue="read"
-                                            helper="Read non-sensitive resource data."
+                                            helper="Đọc dữ liệu tài nguyên không nhạy cảm."
                                             :checked="in_array('read', $permissions)"
                                             :disabled="in_array('root', $permissions)" />
                                     </div>
                                     <div class="listbox-option p-0!">
-                                        <x-forms.checkbox id="permission-read-sensitive" label="Read sensitive data"
+                                        <x-forms.checkbox id="permission-read-sensitive" label="Đọc dữ liệu nhạy cảm"
                                             fullWidth wire:model.live="permissions" domValue="read:sensitive"
-                                            helper="Include secrets, logs, passwords, and Compose content."
+                                            helper="Bao gồm secret, nhật ký, mật khẩu và nội dung Compose."
                                             :checked="in_array('read:sensitive', $permissions)"
                                             :disabled="in_array('root', $permissions) || !$canUseSensitivePermissions" />
                                     </div>
@@ -94,22 +94,22 @@
             @endcan
 
             @if (session()->has('token'))
-                <x-application.settings-section title="Copy your token">
+                <x-application.settings-section title="Sao chép mã token của bạn">
                     <div class="flex flex-col gap-3">
                         <p class="text-sm text-neutral-500 dark:text-fg-dim">
-                            This value will not be shown again after you leave this page.
+                            Giá trị này sẽ không được hiển thị lại sau khi bạn rời khỏi trang này.
                         </p>
                         <div class="relative">
                             <input type="text" value="{{ session('token') }}" readonly
                                 class="input w-full pr-12! font-mono text-[12px] text-black dark:text-fg">
-                            <x-copy-button :value="session('token')" label="Copy token"
+                            <x-copy-button :value="session('token')" label="Sao chép token"
                                 class="absolute top-1/2 right-2 -translate-y-1/2" />
                         </div>
                     </div>
                 </x-application.settings-section>
             @endif
 
-            <x-application.settings-section title="Issued tokens" flush>
+            <x-application.settings-section title="Các token đã phát hành" flush>
                 <div x-data="{
                     search: '',
                     page: 1,
@@ -151,11 +151,11 @@
                                 <x-reicon name="search"
                                     class="pointer-events-none absolute top-1/2 left-2.5 z-10 size-3.5 -translate-y-1/2 text-neutral-400 dark:text-fg-faint" />
                                 <input x-model.debounce.150ms="search" x-on:input="page = 1" type="search"
-                                    placeholder="Search tokens" aria-label="Search tokens"
+                                    placeholder="Tìm kiếm token" aria-label="Tìm kiếm token"
                                     class="h-8! w-full rounded-lg! border-neutral-200! bg-white! py-0! pr-8! pl-8! text-[12px]! shadow-none! placeholder:text-neutral-400 focus:border-accent! focus:ring-0! dark:border-white/[0.08]! dark:bg-white/[0.035]! dark:text-fg! dark:placeholder:text-fg-faint">
                                 <button x-cloak x-show="search" x-on:click="search = ''; page = 1" type="button"
                                     class="absolute top-1/2 right-2 flex size-5 -translate-y-1/2 items-center justify-center rounded text-neutral-400 transition-colors hover:bg-neutral-100 hover:text-black dark:text-fg-faint dark:hover:bg-white/[0.07] dark:hover:text-fg"
-                                    aria-label="Clear search">
+                                    aria-label="Xóa tìm kiếm">
                                     <x-reicon name="x" class="size-3" />
                                 </button>
                             </div>
@@ -164,18 +164,18 @@
 
                     @if ($tokens->isEmpty())
                         <div class="p-4">
-                            <x-empty title="No API tokens" description="Create a token when an external client needs access."
+                            <x-empty title="Chưa có token API nào" description="Tạo token khi ứng dụng hoặc dịch vụ bên ngoài cần quyền truy cập."
                                 icon-name="keys" size="sm" />
                         </div>
                     @else
                         <div x-cloak x-show="filteredTokens.length > 0" class="data-table">
                             <div class="data-table-header api-tokens-table-grid">
-                                <span>Description</span>
-                                <span>Permissions</span>
-                                <span>Last used</span>
-                                <span>Created</span>
-                                <span>Expires</span>
-                                <span class="text-right">Actions</span>
+                                <span>Mô tả</span>
+                                <span>Quyền hạn</span>
+                                <span>Dùng gần nhất</span>
+                                <span>Ngày tạo</span>
+                                <span>Hết hạn</span>
+                                <span class="text-right">Thao tác</span>
                             </div>
                             @foreach ($tokens as $token)
                                 <div wire:key="api-token-{{ $token->id }}"
@@ -196,34 +196,34 @@
                                         @endforeach
                                     </div>
                                     <div class="text-[11px] text-neutral-500 dark:text-fg-dim">
-                                        {{ $token->last_used_at?->diffForHumans() ?? 'Never' }}
+                                        {{ $token->last_used_at?->diffForHumans() ?? 'Chưa từng' }}
                                     </div>
                                     <div class="text-[11px] text-neutral-500 dark:text-fg-dim">
                                         {{ $token->created_at->format('Y-m-d') }}
                                     </div>
                                     <div class="text-[11px] text-neutral-500 dark:text-fg-dim">
                                         @if (!$token->expires_at)
-                                            Never
+                                            Không bao giờ
                                         @elseif ($token->expires_at->isPast())
-                                            <x-status-badge label="Expired" type="error" />
+                                            <x-status-badge label="Đã hết hạn" type="error" />
                                         @else
                                             {{ $token->expires_at->format('Y-m-d') }}
                                         @endif
                                     </div>
                                     <div class="flex justify-end">
                                         @if (auth()->id() === $token->tokenable_id)
-                                            <x-modal-confirmation title="Confirm API Token Revocation?"
+                                            <x-modal-confirmation title="Xác nhận thu hồi token API?"
                                                 submitAction="revoke({{ $token->id }})" :actions="[
-                                                    'This API token will be permanently revoked.',
+                                                    'Mã token API này sẽ bị thu hồi vĩnh viễn.',
                                                 ]"
                                                 confirmationText="{{ $token->name }}"
-                                                confirmationLabel="Enter the token description to confirm"
-                                                shortConfirmationLabel="Token description"
-                                                :confirmWithPassword="false" step2ButtonText="Revoke token">
+                                                confirmationLabel="Nhập mô tả của token để xác nhận"
+                                                shortConfirmationLabel="Mô tả token"
+                                                :confirmWithPassword="false" step2ButtonText="Thu hồi token">
                                                 <x-slot:trigger>
                                                     <button type="button"
                                                         class="inline-flex h-7 items-center rounded-md px-2 text-[11px] font-medium text-error transition-colors hover:bg-error/10">
-                                                        Revoke
+                                                        Thu hồi
                                                     </button>
                                                 </x-slot:trigger>
                                             </x-modal-confirmation>
@@ -234,12 +234,12 @@
                         </div>
 
                         <div x-cloak x-show="filteredTokens.length === 0" class="p-4">
-                            <x-empty size="sm" title="No matching tokens"
-                                description="Try a different description or permission." />
+                            <x-empty size="sm" title="Không tìm thấy token phù hợp"
+                                description="Hãy thử tìm kiếm với mô tả hoặc quyền hạn khác." />
                         </div>
 
                         <x-client-pagination x-cloak x-show="filteredTokens.length > 0"
-                            summary="`${firstVisibleRow}-${lastVisibleRow} of ${filteredTokens.length}`"
+                            summary="`${firstVisibleRow}-${lastVisibleRow} trong ${filteredTokens.length}`"
                             page-size-model="perPage" storage-key="coolify.page-size.api-tokens"
                             previous-action="goToPage(page - 1)" next-action="goToPage(page + 1)"
                             next-disabled="page >= lastPage" />

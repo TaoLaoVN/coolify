@@ -1,20 +1,116 @@
 <div x-data
-    x-init="window.toast = function(message, options = {}) {
-        try {
-            window.dispatchEvent(new CustomEvent('toast-show', {
-                detail: {
-                    type: options.type ?? 'default',
-                    message,
-                    description: options.description ?? '',
-                    position: options.position ?? 'bottom-right',
-                    html: options.html ?? '',
-                    persistent: options.persistent ?? false,
-                },
-            }));
-        } catch (error) {
-            console.error('Error showing toast:', error);
-        }
-    }">
+    x-init="
+        const toastDict = {
+            'Success': 'Thành công',
+            'Error': 'Lỗi',
+            'Warning': 'Cảnh báo',
+            'Info': 'Thông tin',
+            'Saved.': 'Đã lưu.',
+            'Saved': 'Đã lưu',
+            'Configuration saved.': 'Đã lưu cấu hình.',
+            'Configuration saved successfully.': 'Đã lưu cấu hình thành công.',
+            'Settings saved.': 'Đã lưu cài đặt.',
+            'Settings updated!': 'Đã cập nhật cài đặt!',
+            'Settings updated.': 'Đã cập nhật cài đặt.',
+            'Copied to clipboard': 'Đã sao chép vào bộ nhớ tạm',
+            'Copied to clipboard.': 'Đã sao chép vào bộ nhớ tạm.',
+            'Realtime events configured!': 'Đã cấu hình sự kiện thời gian thực!',
+            'Server validated successfully.': 'Xác thực máy chủ thành công.',
+            'Server validated, proxy is starting in a moment.': 'Máy chủ đã xác thực, proxy đang khởi động trong giây lát.',
+            'Server settings updated.': 'Đã cập nhật cài đặt máy chủ.',
+            'Server updated.': 'Đã cập nhật máy chủ.',
+            'Server is reachable.': 'Máy chủ có thể kết nối được.',
+            'Server is not reachable.': 'Không thể kết nối đến máy chủ.',
+            'Database saved.': 'Đã lưu cơ sở dữ liệu.',
+            'Database updated.': 'Đã cập nhật cơ sở dữ liệu.',
+            'Database deleted.': 'Đã xóa cơ sở dữ liệu.',
+            'Application deleted.': 'Đã xóa ứng dụng.',
+            'Application settings updated!': 'Đã cập nhật cài đặt ứng dụng!',
+            'Application source updated!': 'Đã cập nhật nguồn ứng dụng!',
+            'Test notification sent.': 'Đã gửi thông báo thử nghiệm.',
+            'Test Email sent.': 'Đã gửi email thử nghiệm.',
+            'Test email sent successfully! Check your email inbox.': 'Đã gửi email thử nghiệm thành công! Vui lòng kiểm tra hộp thư đến.',
+            'Environment variable added.': 'Đã thêm biến môi trường.',
+            'Environment variable updated.': 'Đã cập nhật biến môi trường.',
+            'Environment variable deleted successfully.': 'Đã xóa biến môi trường thành công.',
+            'Environment variables updated.': 'Đã cập nhật các biến môi trường.',
+            'Proxy configuration saved.': 'Đã lưu cấu hình proxy.',
+            'Proxy configuration reset to default.': 'Đã khôi phục cấu hình proxy về mặc định.',
+            'Proxy is restarting.': 'Proxy đang khởi động lại.',
+            'Proxy is starting.': 'Proxy đang khởi động.',
+            'Proxy is stopping.': 'Proxy đang dừng.',
+            'Proxy has exited.': 'Proxy đã thoát.',
+            'Proxy is running.': 'Proxy đang chạy.',
+            'Restarting Sentinel.': 'Đang khởi động lại Sentinel.',
+            'Restarting database.': 'Đang khởi động lại cơ sở dữ liệu.',
+            'Container started.': 'Đã khởi động container.',
+            'Container stopped.': 'Đã dừng container.',
+            'Container restarted.': 'Đã khởi động lại container.',
+            'Container removed.': 'Đã gỡ bỏ container.',
+            'Profile updated.': 'Đã cập nhật hồ sơ cá nhân.',
+            'Password updated.': 'Đã cập nhật mật khẩu.',
+            'Team updated.': 'Đã cập nhật nhóm.',
+            'Project updated.': 'Đã cập nhật dự án.',
+            'Tag added.': 'Đã thêm thẻ.',
+            'Tag deleted.': 'Đã xóa thẻ.',
+            'Private key created successfully.': 'Đã tạo khóa SSH thành công.',
+            'Private key generated successfully.': 'Đã sinh khóa SSH thành công.',
+            'Private key updated successfully.': 'Đã cập nhật khóa SSH thành công.',
+            'Private key updated!': 'Đã cập nhật khóa SSH!',
+            'Private key updated.': 'Đã cập nhật khóa SSH.',
+            'Cloudflare Tunnel enabled.': 'Đã bật Cloudflare Tunnel.',
+            'Cloudflare Tunnel disabled.': 'Đã tắt Cloudflare Tunnel.',
+            'Email notifications settings updated.': 'Đã cập nhật cài đặt thông báo Email.',
+            'Transactional email settings updated.': 'Đã cập nhật cài đặt email giao dịch.',
+            'SMTP settings updated.': 'Đã cập nhật cài đặt SMTP.',
+            'Resend settings updated.': 'Đã cập nhật cài đặt Resend.',
+            'No notifications enabled': 'Chưa bật kênh thông báo nào',
+            'Backup queued.': 'Đã đưa tác vụ sao lưu vào hàng đợi.',
+            'Backup queued. It will be available in a few minutes.': 'Đã đưa tác vụ sao lưu vào hàng đợi. Bản sao lưu sẽ sẵn sàng trong vài phút.',
+            'Backup updated.': 'Đã cập nhật sao lưu.',
+            'Backup deleted.': 'Đã xóa sao lưu.',
+            'Backup recovery queued.': 'Đã đưa tác vụ phục hồi sao lưu vào hàng đợi.',
+            'Scheduled task added.': 'Đã thêm tác vụ định kỳ.',
+            'Scheduled task updated.': 'Đã cập nhật tác vụ định kỳ.',
+            'Scheduled task executed.': 'Đã thực thi tác vụ định kỳ.',
+            'Scheduled backup deleted.': 'Đã xóa lịch sao lưu.',
+            'Mass deployment started.': 'Đã bắt đầu triển khai hàng loạt.',
+            'Deployment skipped': 'Bỏ qua đợt triển khai',
+            'Domain added.': 'Đã thêm tên miền.',
+            'Domain removed.': 'Đã xóa tên miền.',
+            'Domain updated.': 'Đã cập nhật tên miền.',
+            'Domain generated.': 'Đã tạo tên miền.',
+            'Wildcard domain generated.': 'Đã tạo tên miền ký tự đại diện (wildcard).',
+            'Welcome onboard!': 'Chào mừng bạn!',
+            'Feedback sent.': 'Đã gửi phản hồi.',
+            'We will get in touch with you as soon as possible.': 'Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất.',
+            'Invalid API token. Please check your token and try again.': 'Mã token API không hợp lệ. Vui lòng kiểm tra lại mã và thử lại.',
+            'Current password is incorrect.': 'Mật khẩu hiện tại không chính xác.',
+            'The two new passwords does not match.': 'Hai mật khẩu mới không khớp nhau.',
+        };
+        const translateToast = (str) => {
+            if (typeof str !== 'string') return str;
+            const t = str.trim();
+            if (toastDict[t]) return toastDict[t];
+            return str;
+        };
+        window.toast = function(message, options = {}) {
+            try {
+                window.dispatchEvent(new CustomEvent('toast-show', {
+                    detail: {
+                        type: options.type ?? 'default',
+                        message: translateToast(message),
+                        description: translateToast(options.description ?? ''),
+                        position: options.position ?? 'bottom-right',
+                        html: options.html ?? '',
+                        persistent: options.persistent ?? false,
+                    },
+                }));
+            } catch (error) {
+                console.error('Error showing toast:', error);
+            }
+        };
+    ">
     <template x-teleport="body">
         <ul x-data="{
             toasts: [],
@@ -141,7 +237,7 @@
                     </template>
 
                     <button type="button" x-show="toast.description && !toast.html"
-                        @click="copyToast(toast)" :title="toast.copied ? 'Copied' : 'Copy details'"
+                        @click="copyToast(toast)" :title="toast.copied ? 'Đã sao chép' : 'Sao chép chi tiết'"
                         class="absolute right-10 top-2.5 flex size-7 items-center justify-center rounded-md text-neutral-400 opacity-0 transition-colors hover:bg-black/5 hover:text-neutral-700 group-hover:opacity-100 dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg"
                         :class="{ 'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400': toast.copied }">
                         <svg x-show="!toast.copied" class="size-3.5" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -152,7 +248,7 @@
                         <x-reicon name="check" x-show="toast.copied" class="size-3.5" />
                     </button>
 
-                    <button type="button" @click="removeToast(toast.id)" aria-label="Dismiss"
+                    <button type="button" @click="removeToast(toast.id)" aria-label="Đóng"
                         class="absolute right-2.5 top-2.5 flex size-7 items-center justify-center rounded-md text-neutral-400 transition-colors hover:bg-black/5 hover:text-neutral-700 dark:text-fg-faint dark:hover:bg-white/[0.06] dark:hover:text-fg">
                         <x-reicon name="x" class="size-3.5" />
                     </button>

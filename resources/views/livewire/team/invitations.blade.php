@@ -1,17 +1,17 @@
 <div>
     @can('manageInvitations', currentTeam())
         @if ($invitations->count() > 0)
-            <x-application.settings-section title="Pending invitations"
-                description="Invitation links that have not been accepted yet." flush>
+            <x-application.settings-section title="Lời mời đang chờ xử lý"
+                description="Các liên kết lời mời chưa được chấp nhận." flush>
                 <div class="overflow-x-auto">
                     <div class="data-table min-w-[760px]">
                         <div
                             class="data-table-header grid-cols-[minmax(13rem,1.2fr)_7rem_7rem_minmax(15rem,1.5fr)_6rem]">
                             <span>Email</span>
-                            <span>Method</span>
-                            <span>Role</span>
-                            <span>Invitation link</span>
-                            <span class="text-right">Actions</span>
+                            <span>Phương thức</span>
+                            <span>Vai trò</span>
+                            <span>Liên kết lời mời</span>
+                            <span class="text-right">Thao tác</span>
                         </div>
                         @foreach ($invitations as $invite)
                             <div wire:key="team-invitation-{{ $invite->id }}"
@@ -20,22 +20,22 @@
                                     {{ $invite->email }}
                                 </div>
                                 <div class="text-[12px] capitalize text-neutral-500 dark:text-fg-dim">
-                                    {{ $invite->via }}
+                                    {{ $invite->via === 'email' ? 'Email' : 'Liên kết' }}
                                 </div>
                                 <div class="text-[12px] capitalize text-neutral-500 dark:text-fg-dim">
-                                    {{ $invite->role }}
+                                    {{ $invite->role === 'owner' ? 'Chủ sở hữu' : ($invite->role === 'admin' ? 'Quản trị viên' : 'Thành viên') }}
                                 </div>
                                 <div class="flex min-w-0 items-center gap-2">
                                     <span
                                         class="min-w-0 truncate font-mono text-[12px] text-neutral-500 dark:text-fg-dim"
                                         title="{{ $invite->link }}">{{ $invite->link }}</span>
-                                    <x-copy-button :value="$invite->link" label="Copy invitation link" />
+                                    <x-copy-button :value="$invite->link" label="Sao chép liên kết lời mời" />
                                 </div>
                                 <div class="text-right">
                                     <button type="button"
                                         class="button h-7! px-2.5! text-[11px]! text-error! hover:text-error!"
                                         wire:click.prevent="deleteInvitation({{ $invite->id }})">
-                                        Revoke
+                                        Thu hồi
                                     </button>
                                 </div>
                             </div>

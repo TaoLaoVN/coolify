@@ -1,6 +1,6 @@
 <div>
     <x-slot:title>
-        Advanced Settings | Coolify
+        Cài đặt nâng cao | Coolify
     </x-slot>
 
     <x-settings.layout>
@@ -11,39 +11,39 @@
             <x-unsaved-bar action="submit"
                 targets="custom_dns_servers,allowed_ips,webhook_allowed_internal_hosts,webhook_allow_localhost,domain_connect_private_key,image_cdn_url" />
 
-            <x-application.settings-section id="access-section" title="Access">
+            <x-application.settings-section id="access-section" title="Quyền truy cập & Đăng ký">
                 <div class="grid gap-4 lg:grid-cols-2">
-                     <x-forms.listbox id="is_registration_enabled" label="Registration"
-                        helper="Allow users to create their own account. When disabled, only administrators can create accounts."
+                     <x-forms.listbox id="is_registration_enabled" label="Đăng ký tài khoản"
+                        helper="Cho phép người dùng tự tạo tài khoản. Khi tắt, chỉ có quản trị viên mới có thể tạo tài khoản."
                         onChange="instantSave" :options="[
-                            ['value' => true, 'label' => 'Anyone can register'],
-                            ['value' => false, 'label' => 'Registration disabled'],
+                            ['value' => true, 'label' => 'Mọi người đều có thể đăng ký'],
+                            ['value' => false, 'label' => 'Vô hiệu hóa đăng ký'],
                          ]" />
                      <x-forms.listbox canGate="update" :canResource="$settings"
-                         id="disable_registration_when_oauth_enabled" label="Password registration with OAuth"
-                         helper="Hide password registration whenever at least one OAuth provider is enabled."
+                         id="disable_registration_when_oauth_enabled" label="Đăng ký bằng mật khẩu khi có OAuth"
+                         helper="Ẩn phần đăng ký bằng mật khẩu khi có ít nhất một nhà cung cấp OAuth được kích hoạt."
                          onChange="instantSave" :options="[
-                             ['value' => false, 'label' => 'Allow password registration'],
-                             ['value' => true, 'label' => 'Disable when OAuth is enabled'],
+                             ['value' => false, 'label' => 'Cho phép đăng ký bằng mật khẩu'],
+                             ['value' => true, 'label' => 'Tắt khi OAuth được bật'],
                          ]" />
-                    <x-forms.listbox id="disable_two_step_confirmation" label="Destructive action confirmation"
-                        helper="Choose whether destructive actions require password and text confirmation."
+                    <x-forms.listbox id="disable_two_step_confirmation" label="Xác nhận hành động nguy hiểm"
+                        helper="Chọn xem các hành động nguy hiểm/xóa có yêu cầu nhập mật khẩu và văn bản xác nhận hay không."
                         onChange="instantSave" :options="[
-                            ['value' => false, 'label' => 'Require two-step confirmation'],
-                            ['value' => true, 'label' => 'Skip two-step confirmation'],
+                            ['value' => false, 'label' => 'Yêu cầu xác nhận hai bước'],
+                            ['value' => true, 'label' => 'Bỏ qua xác nhận hai bước'],
                         ]" />
                 </div>
             </x-application.settings-section>
 
-            <x-application.settings-section id="dns-section" title="DNS validation">
+            <x-application.settings-section id="dns-section" title="Xác thực DNS">
                 <div class="grid gap-4 lg:grid-cols-2">
-                    <x-forms.listbox id="is_dns_validation_enabled" label="DNS validation"
-                        helper="Validate custom domains before deployment." onChange="instantSave" :options="[
-                            ['value' => true, 'label' => 'Enabled'],
-                            ['value' => false, 'label' => 'Disabled'],
+                    <x-forms.listbox id="is_dns_validation_enabled" label="Xác thực DNS"
+                        helper="Xác thực tên miền tùy chỉnh trước khi triển khai." onChange="instantSave" :options="[
+                            ['value' => true, 'label' => 'Đã bật'],
+                            ['value' => false, 'label' => 'Đã tắt'],
                         ]" />
-                    <x-forms.input id="custom_dns_servers" label="Custom DNS servers"
-                        helper="Comma-separated resolvers. Leave empty to use system defaults."
+                    <x-forms.input id="custom_dns_servers" label="Máy chủ DNS tùy chỉnh"
+                        helper="Danh sách DNS phân tách bởi dấu phẩy. Để trống để sử dụng mặc định của hệ thống."
                         placeholder="1.1.1.1, 8.8.8.8" />
                 </div>
             </x-application.settings-section>
@@ -74,97 +74,97 @@
                 </x-application.settings-section>
             @endif
 
-            <x-application.settings-section id="api-section" title="API and MCP">
+            <x-application.settings-section id="api-section" title="API và máy chủ MCP">
                 <div class="grid gap-4 lg:grid-cols-2">
-                    <x-forms.listbox id="is_api_enabled" label="API access"
-                        helper="Allow authenticated requests to the Coolify REST API." onChange="instantSave"
+                    <x-forms.listbox id="is_api_enabled" label="Truy cập API"
+                        helper="Cho phép các yêu cầu có xác thực đến Coolify REST API." onChange="instantSave"
                         :options="[
-                            ['value' => true, 'label' => 'Enabled'],
-                            ['value' => false, 'label' => 'Disabled'],
+                            ['value' => true, 'label' => 'Đã bật'],
+                            ['value' => false, 'label' => 'Đã tắt'],
                         ]" />
-                    <x-forms.listbox id="is_mcp_server_enabled" label="MCP server"
-                        helper="Expose the authenticated Streamable HTTP endpoint at /mcp." onChange="instantSave"
+                    <x-forms.listbox id="is_mcp_server_enabled" label="Máy chủ MCP"
+                        helper="Mở endpoint HTTP Streamable có xác thực tại /mcp." onChange="instantSave"
                         :options="[
-                            ['value' => true, 'label' => 'Enabled'],
-                            ['value' => false, 'label' => 'Disabled'],
+                            ['value' => true, 'label' => 'Đã bật'],
+                            ['value' => false, 'label' => 'Đã tắt'],
                         ]" />
                     <div class="lg:col-span-2">
-                        <x-forms.input id="allowed_ips" label="Allowed IPs"
-                            helper="Applies to the REST API and the MCP endpoint. Comma-separated IPs or CIDR ranges. Empty or 0.0.0.0 allows all sources."
+                        <x-forms.input id="allowed_ips" label="IP được phép truy cập"
+                            helper="Áp dụng cho cả REST API và endpoint MCP. Nhập các IP hoặc dải mạng CIDR phân tách bởi dấu phẩy. Để trống hoặc 0.0.0.0 để cho phép tất cả nguồn."
                             placeholder="192.168.1.100, 10.0.0.0/8" />
                     </div>
                 </div>
                 @if ($is_api_enabled && (empty($allowed_ips) || in_array('0.0.0.0', array_map('trim', explode(',', $allowed_ips ?? '')))))
-                    <x-callout type="warning" title="API access is open to every source" class="mt-4">
-                        Restrict the allowlist before using API access on a public production instance.
+                    <x-callout type="warning" title="Truy cập API đang mở cho mọi nguồn" class="mt-4">
+                        Vui lòng giới hạn danh sách IP được phép trước khi sử dụng quyền truy cập API trên môi trường máy chủ công khai.
                     </x-callout>
                 @endif
                 @if ($is_mcp_server_enabled)
-                    <x-callout type="info" title="MCP endpoint" class="mt-4">
+                    <x-callout type="info" title="Endpoint MCP" class="mt-4">
                         <div class="flex items-center gap-1">
                             <code>{{ url('/mcp') }}</code>
-                            <x-copy-button :value="url('/mcp')" label="Copy MCP endpoint" />
+                            <x-copy-button :value="url('/mcp')" label="Sao chép endpoint MCP" />
                         </div>
-                        Authenticate with a bearer token from
-                        <a href="{{ route('security.api-tokens') }}" class="font-medium underline" {{ wireNavigate() }}>Security → API Tokens</a>.
+                        Xác thực bằng bearer token từ
+                        <a href="{{ route('security.api-tokens') }}" class="font-medium underline" {{ wireNavigate() }}>Khóa & Mã token → Mã token API</a>.
                     </x-callout>
                 @endif
             </x-application.settings-section>
 
-            <x-application.settings-section id="endpoint-section" title="Outbound endpoints">
+            <x-application.settings-section id="endpoint-section" title="Điểm cuối gửi đi (Outbound endpoints)">
                 <div class="flex flex-col gap-4">
                     <x-forms.textarea id="webhook_allowed_internal_hosts" rows="4"
-                        label="Allowed internal targets"
-                        helper="Hostnames, IPs, or CIDR ranges separated by commas or new lines."
+                        label="Mục tiêu nội bộ được phép"
+                        helper="Tên máy chủ (hostname), IP hoặc dải mạng CIDR phân tách bởi dấu phẩy hoặc xuống dòng."
                         placeholder="hooks.company.local, 10.50.0.0/16" />
                     <div class="max-w-md">
-                        <x-forms.listbox id="webhook_allow_localhost" label="Localhost targets"
-                            helper="Loopback targets must also be present in the allowlist." :options="[
-                                ['value' => true, 'label' => 'Allowed'],
-                                ['value' => false, 'label' => 'Blocked'],
+                        <x-forms.listbox id="webhook_allow_localhost" label="Mục tiêu Localhost"
+                            helper="Các mục tiêu loopback (127.0.0.1) cũng phải xuất hiện trong danh sách cho phép." :options="[
+                                ['value' => true, 'label' => 'Được phép'],
+                                ['value' => false, 'label' => 'Bị chặn'],
                             ]" />
                     </div>
                 </div>
             </x-application.settings-section>
 
-            <x-application.settings-section id="interface-section" title="Interface and telemetry">
+            <x-application.settings-section id="interface-section" title="Giao diện và Dữ liệu đo lường (Telemetry)">
                 <div class="grid gap-4 lg:grid-cols-2">
-                    <x-forms.listbox id="is_wire_navigate_enabled" label="Navigation"
-                        helper="Prefetch pages and navigate without full reloads." onChange="instantSave" :options="[
-                            ['value' => true, 'label' => 'SPA navigation'],
-                            ['value' => false, 'label' => 'Full page navigation'],
+                    <x-forms.listbox id="is_wire_navigate_enabled" label="Cơ chế điều hướng trang"
+                        helper="Tải trước trang và chuyển trang mượt mà không cần tải lại toàn bộ." onChange="instantSave" :options="[
+                            ['value' => true, 'label' => 'Điều hướng SPA (mượt mà)'],
+                            ['value' => false, 'label' => 'Tải lại toàn trang'],
                         ]" />
-                    <x-forms.listbox id="do_not_track" label="Anonymous telemetry"
-                        helper="Control installation counting and error reports." onChange="instantSave" :options="[
-                            ['value' => false, 'label' => 'Enabled'],
-                            ['value' => true, 'label' => 'Disabled'],
+                    <x-forms.listbox id="do_not_track" label="Dữ liệu đo lường ẩn danh"
+                        helper="Kiểm soát việc thống kê số lượng cài đặt và gửi báo cáo lỗi ẩn danh." onChange="instantSave" :options="[
+                            ['value' => false, 'label' => 'Đã bật'],
+                            ['value' => true, 'label' => 'Đã tắt'],
                         ]" />
                     <div class="flex flex-col gap-2">
-                        <x-forms.listbox id="is_sponsorship_popup_enabled" label="Sponsorship reminders"
-                            helper="Show the monthly project sponsorship reminder." onChange="instantSave" :options="[
-                                ['value' => true, 'label' => 'Enabled'],
-                                ['value' => false, 'label' => 'Disabled'],
+                        <x-forms.listbox id="is_sponsorship_popup_enabled" label="Nhắc nhở ủng hộ dự án"
+                            helper="Hiển thị thông báo nhắc nhở tài trợ dự án hàng tháng." onChange="instantSave" :options="[
+                                ['value' => true, 'label' => 'Đã bật'],
+                                ['value' => false, 'label' => 'Đã tắt'],
                             ]" />
                         @if (isDev())
                             <x-forms.button type="button" @click="$dispatch('show-sponsorship-reminder')">
-                                Show sponsorship reminder
+                                Xem thông báo nhắc nhở tài trợ
                             </x-forms.button>
                         @endif
                     </div>
                 </div>
             </x-application.settings-section>
 
-            <x-application.settings-section id="avatar-storage-section" title="Image storage"
-                helper="Choose where compressed profile pictures and project icons are stored. Use S3 for multi-instance or cloud deployments so every application replica can access the same files.">
+            <x-application.settings-section id="avatar-storage-section" title="Lưu trữ hình ảnh"
+                helper="Chọn nơi lưu trữ ảnh đại diện và biểu tượng dự án đã nén. Sử dụng S3 cho các mô hình đa máy chủ hoặc cloud để mọi bản sao ứng dụng đều truy cập được cùng một tệp.">
                 <div class="flex max-w-md flex-col gap-4">
-                    <x-forms.listbox id="avatar_storage" label="Storage destination" onChange="instantSave"
+                    <x-forms.listbox id="avatar_storage" label="Nơi lưu trữ" onChange="instantSave"
                         :options="$avatar_storage_options" />
-                    <x-forms.input id="image_cdn_url" label="Image CDN URL"
-                        helper="Optional public URL (for example a CDN or public bucket domain) that serves profile pictures and project icons stored on S3. Leave empty to serve them through Coolify." placeholder="https://images.example.com" />
+                    <x-forms.input id="image_cdn_url" label="Đường dẫn CDN hình ảnh"
+                        helper="URL công khai tùy chọn (ví dụ CDN hoặc tên miền bucket công khai) phục vụ ảnh đại diện và biểu tượng lưu trữ trên S3. Để trống để phục vụ trực tiếp qua Coolify." placeholder="https://images.example.com" />
                 </div>
                 @if (count($avatar_storage_options) === 1)
-                    <x-callout type="info" title="No usable S3 storage configured" class="mt-4">
-                        Add and test an S3-compatible storage under Storages before selecting it here.
+                    <x-callout type="info" title="Chưa cấu hình kho lưu trữ S3 nào" class="mt-4">
+                        Vui lòng thêm và kiểm tra kho lưu trữ tương thích S3 trong mục Kho lưu trữ S3 trước khi chọn tại đây.
                     </x-callout>
                 @endif
             </x-application.settings-section>

@@ -2,63 +2,63 @@
     @php
         $deletionBlockers = currentTeam()->deletionBlockers();
         $blockerDetails = [
-            'projects' => ['label' => 'project', 'route' => 'project.index'],
-            'servers' => ['label' => 'server', 'route' => 'server.index'],
-            'sources' => ['label' => 'Git source', 'route' => 'source.all'],
+            'projects' => ['label' => 'dự án', 'route' => 'project.index'],
+            'servers' => ['label' => 'máy chủ', 'route' => 'server.index'],
+            'sources' => ['label' => 'nguồn Git', 'route' => 'source.all'],
         ];
     @endphp
     <x-slot:title>
-        Team Danger Zone | Coolify
+        Vùng nguy hiểm của nhóm | Coolify
     </x-slot>
 
     <x-team.settings-layout>
         <div class="application-settings-form">
-            <x-application.settings-section id="team-danger-zone" title="Danger zone"
-                helper="Destructive actions for this team cannot be undone.">
-                <x-danger-zone title="Delete team">
+            <x-application.settings-section id="team-danger-zone" title="Vùng nguy hiểm"
+                helper="Các thao tác hủy đối với nhóm này không thể hoàn tác.">
+                <x-danger-zone title="Xóa nhóm">
                             @if (auth()->user()->roleInTeam(currentTeam()->id) !== 'owner')
                                 <p>
-                                    Only team owners can delete this team.
+                                    Chỉ chủ sở hữu nhóm mới có thể xóa nhóm này.
                                 </p>
                             @elseif (session('currentTeam.id') === 0)
                                 <p>
-                                    The default team cannot be deleted.
+                                    Nhóm mặc định không thể bị xóa.
                                 </p>
                             @elseif(auth()->user()->teams()->count() === 1 || auth()->user()->currentTeam()->personal_team)
                                 <p>
-                                    Your last or personal team cannot be deleted.
+                                    Nhóm cuối cùng hoặc nhóm cá nhân của bạn không thể bị xóa.
                                 </p>
                             @elseif(currentTeam()->subscription)
                                 <p>
-                                    Cancel your <a class="font-medium text-coollabs hover:underline dark:text-warning"
-                                        {{ wireNavigate() }} href="{{ route('subscription.show') }}">subscription</a>
-                                    before deleting this team.
+                                    Hủy <a class="font-medium text-coollabs hover:underline dark:text-warning"
+                                        {{ wireNavigate() }} href="{{ route('subscription.show') }}">gói đăng ký</a>
+                                    trước khi xóa nhóm này.
                                 </p>
                             @elseif($deletionBlockers === [])
                                 <p>
-                                    Permanently delete <strong class="font-semibold text-black dark:text-fg">{{ currentTeam()->name }}</strong>
-                                    from Coolify. This action cannot be undone.
+                                    Xóa vĩnh viễn <strong class="font-semibold text-black dark:text-fg">{{ currentTeam()->name }}</strong>
+                                    khỏi Coolify. Hành động này không thể hoàn tác.
                                 </p>
                                 <ul class="space-y-1 text-xs">
-                                    <li>• All members will lose access to this team.</li>
-                                    <li>• This team cannot be restored from Coolify after deletion.</li>
+                                    <li>• Tất cả thành viên sẽ mất quyền truy cập vào nhóm này.</li>
+                                    <li>• Nhóm này không thể khôi phục lại từ Coolify sau khi xóa.</li>
                                 </ul>
                             @else
                                 <p>
-                                    This team still owns:
+                                    Nhóm này vẫn đang sở hữu:
                                 </p>
                                 <ul class="space-y-1">
                                     @foreach ($deletionBlockers as $type => $count)
                                         <li>
                                             <a class="font-medium text-coollabs hover:underline dark:text-warning"
                                                 {{ wireNavigate() }} href="{{ route($blockerDetails[$type]['route']) }}">
-                                                {{ $count }} {{ str($blockerDetails[$type]['label'])->plural($count) }}
+                                                {{ $count }} {{ $blockerDetails[$type]['label'] }}
                                             </a>
                                         </li>
                                     @endforeach
                                 </ul>
                                 <p>
-                                    Remove or move these resources before deleting the team.
+                                    Hãy xóa hoặc chuyển giao các tài nguyên này trước khi xóa nhóm.
                                 </p>
                             @endif
                         <x-slot:action>
@@ -69,17 +69,17 @@
                                     !auth()->user()->currentTeam()->personal_team &&
                                     !currentTeam()->subscription &&
                                     $deletionBlockers === [])
-                                <x-modal-confirmation title="Confirm Team Deletion?" buttonTitle="Delete team"
+                                <x-modal-confirmation title="Xác nhận xóa nhóm?" buttonTitle="Xóa nhóm"
                                     isErrorButton submitAction="delete"
-                                    :actions="['The current team will be permanently deleted from Coolify and the database.']"
+                                    :actions="['Nhóm hiện tại sẽ bị xóa vĩnh viễn khỏi Coolify và cơ sở dữ liệu.']"
                                     confirmationText="{{ currentTeam()->name }}"
-                                    confirmationLabel="Enter the team name to confirm permanent deletion"
-                                    shortConfirmationLabel="Team name" :confirmWithPassword="false"
-                                    step2ButtonText="Permanently Delete" canGate="delete"
+                                    confirmationLabel="Nhập tên nhóm để xác nhận xóa vĩnh viễn"
+                                    shortConfirmationLabel="Tên nhóm" :confirmWithPassword="false"
+                                    step2ButtonText="Xóa vĩnh viễn" canGate="delete"
                                     :canResource="$team" />
                             @else
-                                <x-forms.button isError disabled tooltip="Resolve the requirements shown before deleting this team.">
-                                    Delete team
+                                <x-forms.button isError disabled tooltip="Vui lòng hoàn thành các yêu cầu được hiển thị trước khi xóa nhóm này.">
+                                    Xóa nhóm
                                 </x-forms.button>
                             @endif
                         </x-slot:action>
@@ -88,17 +88,17 @@
                 @if (session('currentTeam.id') !== 0 && !currentTeam()->subscription && (currentTeam()->projects->isNotEmpty() || currentTeam()->servers->isNotEmpty()))
                     <div class="mt-4 overflow-hidden rounded-lg border border-neutral-200 dark:border-white/[0.08]">
                         <div class="flex items-center justify-between gap-3 border-b border-neutral-200 px-3 py-2 dark:border-white/[0.08]">
-                            <h5 class="text-sm font-medium text-black dark:text-fg">Resources</h5>
+                            <h5 class="text-sm font-medium text-black dark:text-fg">Tài nguyên</h5>
                             <x-forms.button type="button" wire:click="refreshResources">
                                 <x-reicon name="refresh" class="size-3.5" />
-                                Refresh
+                                Làm mới
                             </x-forms.button>
                         </div>
                         <table class="w-full text-left text-sm">
                             <thead class="bg-neutral-50 text-[11px] uppercase tracking-wide text-neutral-500 dark:bg-coolgray-100 dark:text-fg-dim">
                                 <tr>
-                                    <th class="px-3 py-2 font-medium">Resource</th>
-                                    <th class="px-3 py-2 font-medium">Name</th>
+                                    <th class="px-3 py-2 font-medium">Loại tài nguyên</th>
+                                    <th class="px-3 py-2 font-medium">Tên</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-neutral-200 dark:divide-white/[0.08]">
@@ -106,7 +106,7 @@
                                     <tr class="text-[13px] text-neutral-600 hover:bg-neutral-50 dark:text-fg-dim dark:hover:bg-white/[0.03]">
                                         <td>
                                             <a class="block px-3 py-2.5" href="{{ route('project.show', ['project_uuid' => $project->uuid]) }}"
-                                                target="_blank" rel="noopener noreferrer">Project</a>
+                                                target="_blank" rel="noopener noreferrer">Dự án</a>
                                         </td>
                                         <td>
                                             <a class="block px-3 py-2.5 font-medium text-black dark:text-fg"
@@ -119,7 +119,7 @@
                                     <tr class="text-[13px] text-neutral-600 hover:bg-neutral-50 dark:text-fg-dim dark:hover:bg-white/[0.03]">
                                         <td>
                                             <a class="block px-3 py-2.5" href="{{ route('server.show', ['server_uuid' => $server->uuid]) }}"
-                                                target="_blank" rel="noopener noreferrer">Server</a>
+                                                target="_blank" rel="noopener noreferrer">Máy chủ</a>
                                         </td>
                                         <td>
                                             <a class="block px-3 py-2.5 font-medium text-black dark:text-fg"

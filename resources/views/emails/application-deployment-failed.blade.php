@@ -1,10 +1,9 @@
 <x-emails.layout>
 @if ($pull_request_id === 0)
-Failed to deploy a new version of {{ $name }} at [{{ $fqdn }}]({{ $fqdn }}) .
+Triển khai phiên bản mới của {{ $name }} tại [{{ $fqdn }}]({{ $fqdn }}) thất bại.
 @else
-Failed to deploy a pull request #{{ $pull_request_id }} of {{ $name }} at
-[{{ $fqdn }}]({{ $fqdn }}).
+Triển khai pull request #{{ $pull_request_id }} của {{ $name }} tại [{{ $fqdn }}]({{ $fqdn }}) thất bại.
 @endif
 
-[View Deployment Logs]({{ $deployment_url }})
+[Xem nhật ký triển khai]({{ $deployment_url }})
 </x-emails.layout>

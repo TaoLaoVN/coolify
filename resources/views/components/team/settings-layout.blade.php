@@ -1,31 +1,31 @@
 @php
     $teamMenuItems = collect([
         [
-            'label' => 'General',
+            'label' => 'Cài đặt chung',
             'route' => 'team.index',
             'active' => request()->routeIs('team.index'),
             'icon' => 'settings',
         ],
         [
-            'label' => 'Members',
+            'label' => 'Thành viên',
             'route' => 'team.member.index',
             'active' => request()->routeIs('team.member.index'),
             'icon' => 'teams',
         ],
         auth()->user()->isAdminOfTeam(currentTeam()->id) ? [
-            'label' => 'Audit log',
+            'label' => 'Nhật ký hoạt động',
             'route' => 'team.audit-log',
             'active' => request()->routeIs('team.audit-log'),
             'icon' => 'time-back',
         ] : null,
         isInstanceAdmin() ? [
-            'label' => 'Admin View',
+            'label' => 'Giao diện quản trị',
             'route' => 'team.admin-view',
             'active' => request()->routeIs('team.admin-view'),
             'icon' => 'admin',
         ] : null,
         auth()->user()->can('delete', currentTeam()) ? [
-            'label' => 'Danger Zone',
+            'label' => 'Vùng nguy hiểm',
             'route' => 'team.danger-zone',
             'active' => request()->routeIs('team.danger-zone'),
             'icon' => 'shield-alert',
@@ -36,15 +36,15 @@
 
 <section class="application-settings-workspace w-full max-w-none">
     <header class="settings-mobile-header xl:hidden">
-        <h1 class="settings-mobile-title">Team</h1>
-        <p class="settings-mobile-description">Manage your team, members, and access settings.</p>
+        <h1 class="settings-mobile-title">Nhóm</h1>
+        <p class="settings-mobile-description">Quản lý nhóm, thành viên và các quyền truy cập.</p>
     </header>
     <div class="grid min-w-0 gap-8 xl:grid-cols-[210px_minmax(0,1fr)] xl:gap-8">
         <aside class="application-settings-navigation min-w-0 xl:self-start"
-            data-settings-search-items="{{ json_encode(settingsSearchItems(['Team' => $teamMenuItems], [])) }}">
+            data-settings-search-items="{{ json_encode(settingsSearchItems(['Nhóm' => $teamMenuItems], [])) }}">
             <nav aria-label="Team settings"
                 class="grid grid-cols-2 gap-0.5 border-y border-neutral-200 py-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-1 xl:border-y-0 xl:py-0 dark:border-white/[0.06]">
-                <div class="nav-section hidden xl:block">Team</div>
+                <div class="nav-section hidden xl:block">Nhóm</div>
                 @foreach ($teamMenuItems as $menuItem)
                     @if ($menuItem['sectionStart'] ?? false)
                         <div class="col-span-full my-2 hidden border-t border-neutral-200 xl:block dark:border-white/[0.06]"

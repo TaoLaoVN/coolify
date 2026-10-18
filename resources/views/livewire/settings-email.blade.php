@@ -1,6 +1,6 @@
 <div>
     <x-slot:title>
-        Transactional Email | Coolify
+        Email giao dịch | Coolify
     </x-slot>
 
     <x-settings.layout>
@@ -11,46 +11,46 @@
             targets="smtpFromName,smtpFromAddress,smtpHost,smtpPort,smtpEncryption,smtpUsername,smtpPassword,smtpTimeout,smtpEhloDomain,resendApiKey" />
 
         <form wire:submit="submit">
-            <x-application.settings-section title="Sender">
+            <x-application.settings-section title="Người gửi">
                 <x-slot:actions>
                     @include('livewire.partials.settings-email-send-test')
                 </x-slot:actions>
                 <div class="grid gap-4 lg:grid-cols-2">
-                    <x-forms.input required id="smtpFromName" helper="Name shown in outgoing email."
-                        label="From name" />
-                    <x-forms.input required id="smtpFromAddress" helper="Address used for outgoing email."
-                        label="From address" />
+                    <x-forms.input required id="smtpFromName" helper="Tên hiển thị trong email gửi đi."
+                        label="Tên người gửi" />
+                    <x-forms.input required id="smtpFromAddress" helper="Địa chỉ email được sử dụng để gửi đi."
+                        label="Địa chỉ gửi" />
                 </div>
             </x-application.settings-section>
         </form>
 
         <form wire:submit.prevent="submitSmtp">
-            <x-application.settings-section title="SMTP server">
+            <x-application.settings-section title="Máy chủ SMTP">
                 <div class="grid gap-4 lg:grid-cols-3">
                     <div class="lg:col-span-3">
                         <div class="w-full sm:w-72">
-                            <x-forms.listbox id="smtpEnabled" label="SMTP delivery"
+                            <x-forms.listbox id="smtpEnabled" label="Gửi qua SMTP"
                                 onChange="instantSaveSmtp" :options="[
-                                    ['value' => true, 'label' => 'Enabled'],
-                                    ['value' => false, 'label' => 'Disabled'],
+                                    ['value' => true, 'label' => 'Đã bật'],
+                                    ['value' => false, 'label' => 'Đã tắt'],
                                 ]" />
                         </div>
                     </div>
-                    <x-forms.input required id="smtpHost" placeholder="smtp.mailgun.org" label="Host" />
-                    <x-forms.input required id="smtpPort" type="number" placeholder="587" label="Port" />
-                    <x-forms.listbox required id="smtpEncryption" label="Encryption" :options="[
+                    <x-forms.input required id="smtpHost" placeholder="smtp.mailgun.org" label="Máy chủ (Host)" />
+                    <x-forms.input required id="smtpPort" type="number" placeholder="587" label="Cổng (Port)" />
+                    <x-forms.listbox required id="smtpEncryption" label="Mã hóa" :options="[
                         ['value' => 'starttls', 'label' => 'StartTLS'],
                         ['value' => 'tls', 'label' => 'TLS / SSL'],
-                        ['value' => 'none', 'label' => 'None'],
+                        ['value' => 'none', 'label' => 'Không có'],
                     ]" />
-                    <x-forms.input id="smtpUsername" label="Username" />
-                    <x-forms.input id="smtpPassword" type="password" label="Password"
+                    <x-forms.input id="smtpUsername" label="Tên đăng nhập" />
+                    <x-forms.input id="smtpPassword" type="password" label="Mật khẩu"
                         autocomplete="new-password" />
                     <x-forms.input id="smtpTimeout" type="number"
-                        helper="Maximum delivery time in seconds." label="Timeout" />
+                        helper="Thời gian gửi tối đa tính bằng giây." label="Thời gian chờ (Timeout)" />
                     <x-forms.input id="smtpEhloDomain" placeholder="coolify.example.com"
-                        helper="Fully qualified domain sent in the SMTP EHLO command. Uses the system default when empty."
-                        label="EHLO domain" />
+                        helper="Tên miền đủ điều kiện gửi trong lệnh SMTP EHLO. Sử dụng mặc định hệ thống nếu để trống."
+                        label="Tên miền EHLO" />
                 </div>
             </x-application.settings-section>
         </form>
@@ -58,13 +58,13 @@
         <form wire:submit.prevent="submitResend">
             <x-application.settings-section title="Resend">
                 <div class="grid gap-4 lg:grid-cols-2">
-                    <x-forms.listbox id="resendEnabled" label="Resend delivery"
+                    <x-forms.listbox id="resendEnabled" label="Gửi qua Resend"
                         onChange="instantSaveResend" :options="[
-                            ['value' => true, 'label' => 'Enabled'],
-                            ['value' => false, 'label' => 'Disabled'],
+                            ['value' => true, 'label' => 'Đã bật'],
+                            ['value' => false, 'label' => 'Đã tắt'],
                         ]" />
                     <x-forms.input type="password" id="resendApiKey" placeholder="API key"
-                        :required="$resendEnabled" label="API key" autocomplete="new-password" />
+                        :required="$resendEnabled" label="Khóa API (API key)" autocomplete="new-password" />
                 </div>
             </x-application.settings-section>
         </form>

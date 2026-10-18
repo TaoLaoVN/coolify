@@ -1,6 +1,6 @@
 <div>
     <x-slot:title>
-        Cloud Tokens | Coolify
+        Mã xác thực đám mây | Coolify
     </x-slot>
 
     <x-security.settings-layout>

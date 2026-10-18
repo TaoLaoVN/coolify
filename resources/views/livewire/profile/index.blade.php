@@ -6,7 +6,7 @@
     },
 }"
     @close-email-change-modal.window="emailModalOpen = false">
-    <x-slot:title>Profile | Coolify</x-slot>
+    <x-slot:title>Hồ sơ cá nhân | Coolify</x-slot>
     <div class="mt-8 flex w-full max-w-none flex-col gap-6 lg:mt-3">
         <section class="application-settings-section" x-data="{
             preview: null,
@@ -65,30 +65,30 @@
                             }
                         } catch (error) {
                             URL.revokeObjectURL(previewUrl);
-                            this.uploadError = 'The image could not be uploaded.';
+                            this.uploadError = 'Không thể tải ảnh lên.';
                         } finally {
                             this.processing = false;
                         }
                     }, () => {
                         URL.revokeObjectURL(previewUrl);
                         this.processing = false;
-                        this.uploadError = 'The image could not be uploaded.';
+                        this.uploadError = 'Không thể tải ảnh lên.';
                     });
                 } catch (error) {
                     this.processing = false;
-                    this.uploadError = 'The image could not be processed in this browser.';
+                    this.uploadError = 'Không thể xử lý ảnh trên trình duyệt này.';
                 }
             },
         }">
             <div class="application-settings-section-header">
                 <div>
-                    <h2>Profile picture</h2>
-                    <p>Upload a JPG, PNG, or WebP image.</p>
+                    <h2>Ảnh đại diện</h2>
+                    <p>Tải lên tệp ảnh JPG, PNG hoặc WebP.</p>
                 </div>
             </div>
             <div class="application-settings-section-body flex flex-col gap-4 sm:flex-row sm:items-center">
                 <div class="flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-full bg-neutral-200 text-2xl font-semibold text-neutral-700 dark:bg-white/[0.1] dark:text-fg">
-                    <img x-cloak x-show="preview" :src="preview" alt="Profile picture preview"
+                    <img x-cloak x-show="preview" :src="preview" alt="Xem trước ảnh đại diện"
                         class="h-full w-full object-cover">
                     @if (auth()->user()->avatar_path)
                         <img src="{{ profile_avatar_url(auth()->user()) }}"
@@ -105,11 +105,11 @@
                             accept="image/jpeg,image/png,image/webp" class="hidden">
                         <x-forms.button type="button" x-on:click="$refs.avatarInput.click()"
                             x-bind:disabled="processing">
-                            <span x-text="processing ? 'Uploading…' : 'Browse…'"></span>
+                            <span x-text="processing ? 'Đang tải lên…' : 'Chọn ảnh…'"></span>
                         </x-forms.button>
                         @if (auth()->user()->avatar_path)
                             <x-forms.button type="button" wire:click="removeAvatar" x-bind:disabled="processing"
-                                isError>Remove</x-forms.button>
+                                isError>Xóa ảnh</x-forms.button>
                         @endif
                     </div>
                     <p x-cloak x-show="uploadError" x-text="uploadError" class="text-xs text-red-500"></p>
@@ -125,17 +125,17 @@
             <section class="application-settings-section">
                 <div class="application-settings-section-header">
                     <div>
-                        <h2>Profile details</h2>
-                        <p>Your display name and verified sign-in address.</p>
+                        <h2>Thông tin cá nhân</h2>
+                        <p>Tên hiển thị và địa chỉ email đăng nhập đã xác minh của bạn.</p>
                     </div>
                 </div>
                 <div class="application-settings-section-body grid gap-4 sm:grid-cols-2">
-                    <x-forms.input id="name" label="Name" required />
+                    <x-forms.input id="name" label="Họ và tên" required />
                     <div class="flex items-end gap-2">
-                        <x-forms.input id="email" label="Email" readonly />
+                        <x-forms.input id="email" label="Địa chỉ Email" readonly />
                         <x-forms.button @click="openEmailModal()" type="button"
                             :disabled="$uses_sso" x-bind:disabled="emailModalOpen || {{ $uses_sso ? 'true' : 'false' }}">
-                            Change
+                            Thay đổi
                         </x-forms.button>
                     </div>
                 </div>
@@ -143,8 +143,8 @@
          </form>
 
          @if ($uses_sso)
-             <x-callout type="info" title="Email managed by SSO">
-                 Signed in with SSO @if ($sso_provider_label) ({{ $sso_provider_label }}) @endif. Email is managed by your SSO provider.
+             <x-callout type="info" title="Email được quản lý bởi SSO">
+                 Đã đăng nhập bằng SSO @if ($sso_provider_label) ({{ $sso_provider_label }}) @endif. Email được quản lý bởi nhà cung cấp SSO của bạn.
              </x-callout>
          @endif
 
@@ -158,41 +158,41 @@
                     style="box-shadow: 0 0 0 1px var(--coollabs-hairline), var(--shadow-modal)">
                     <header>
                         <div>
-                            <h3>{{ $show_verification ? 'Verify new email' : 'Change email' }}</h3>
+                            <h3>{{ $show_verification ? 'Xác minh email mới' : 'Thay đổi email' }}</h3>
                             <p class="mt-1 text-xs text-neutral-500 dark:text-fg-dim">
                                 @if ($show_verification)
-                                    Code sent to {{ $new_email ?: auth()->user()->pending_email }}.
+                                    Mã xác nhận đã được gửi tới {{ $new_email ?: auth()->user()->pending_email }}.
                                 @else
-                                    A six-digit verification code will be sent to the new address.
+                                    Mã xác minh gồm sáu chữ số sẽ được gửi đến địa chỉ mới.
                                 @endif
                             </p>
                         </div>
                         <button type="button"
                             @click="@if ($show_verification) $wire.cancelEmailChange().then(() => emailModalOpen = false) @else emailModalOpen = false @endif"
-                            class="icon-button shrink-0" aria-label="Close">
+                            class="icon-button shrink-0" aria-label="Đóng">
                             <x-reicon name="x" class="size-4" />
                         </button>
                     </header>
 
                     @if ($show_verification)
                         <form wire:submit="verifyEmailChange" class="application-settings-section-body space-y-4">
-                            <x-forms.input id="email_verification_code" label="Verification code" required
+                            <x-forms.input id="email_verification_code" label="Mã xác minh" required
                                 inputmode="numeric" maxlength="6" />
                             <p class="text-xs text-neutral-500 dark:text-fg-dim">
-                                The code expires after
-                                {{ config('constants.email_change.verification_code_expiry_minutes', 10) }} minutes.
+                                Mã sẽ hết hạn sau
+                                {{ config('constants.email_change.verification_code_expiry_minutes', 10) }} phút.
                             </p>
                             <div class="flex justify-end gap-2">
-                                <x-forms.button wire:click="resendVerificationCode" type="button">Resend code</x-forms.button>
-                                <x-forms.button type="submit" isHighlighted>Verify email</x-forms.button>
+                                <x-forms.button wire:click="resendVerificationCode" type="button">Gửi lại mã</x-forms.button>
+                                <x-forms.button type="submit" isHighlighted>Xác minh email</x-forms.button>
                             </div>
                         </form>
                     @else
                         <form wire:submit="requestEmailChange" class="application-settings-section-body space-y-4">
-                            <x-forms.input id="new_email" label="New email address" required type="email"
+                            <x-forms.input id="new_email" label="Địa chỉ email mới" required type="email"
                                 x-ref="newEmailInput" />
                             <div class="flex justify-end">
-                                <x-forms.button type="submit" isHighlighted>Send code</x-forms.button>
+                                <x-forms.button type="submit" isHighlighted>Gửi mã</x-forms.button>
                             </div>
                         </form>
                     @endif
@@ -205,16 +205,16 @@
             <section class="application-settings-section">
                 <div class="application-settings-section-header">
                     <div>
-                        <h2>Password</h2>
-                        <p>Changing your password signs out every active session.</p>
+                        <h2>Mật khẩu</h2>
+                        <p>Đổi mật khẩu sẽ đăng xuất khỏi tất cả các phiên đang hoạt động.</p>
                     </div>
-                    <x-forms.button type="submit">Change password</x-forms.button>
+                    <x-forms.button type="submit">Đổi mật khẩu</x-forms.button>
                 </div>
                 <div class="application-settings-section-body grid gap-4 sm:grid-cols-2">
-                    <x-forms.input class="sm:col-span-2" id="current_password" label="Current password"
+                    <x-forms.input class="sm:col-span-2" id="current_password" label="Mật khẩu hiện tại"
                         required type="password" />
-                    <x-forms.input id="new_password" label="New password" required type="password" />
-                    <x-forms.input id="new_password_confirmation" label="Confirm new password" required
+                    <x-forms.input id="new_password" label="Mật khẩu mới" required type="password" />
+                    <x-forms.input id="new_password_confirmation" label="Xác nhận mật khẩu mới" required
                         type="password" />
                 </div>
             </section>
@@ -223,15 +223,15 @@
         <section class="application-settings-section">
             <div class="application-settings-section-header">
                 <div>
-                    <h2>Two-factor authentication</h2>
-                    <p>Add a time-based one-time password to protect your account.</p>
+                    <h2>Xác thực hai yếu tố (2FA)</h2>
+                    <p>Thêm mật khẩu một lần theo thời gian (TOTP) để bảo vệ tài khoản của bạn.</p>
                 </div>
                 @if (request()->user()->two_factor_confirmed_at)
-                    <x-status-badge status="Enabled" type="success" />
+                    <x-status-badge status="Đã bật" type="success" />
                 @elseif (session('status') !== 'two-factor-authentication-enabled')
                     <form action="/user/two-factor-authentication" method="POST">
                         @csrf
-                        <x-forms.button type="submit">Configure 2FA</x-forms.button>
+                        <x-forms.button type="submit">Cấu hình 2FA</x-forms.button>
                     </form>
                 @endif
             </div>
@@ -244,9 +244,9 @@
                         </div>
                         <div class="space-y-4">
                             <div>
-                                <h3 class="text-sm font-semibold text-black dark:text-fg">Finish setup</h3>
+                                <h3 class="text-sm font-semibold text-black dark:text-fg">Hoàn tất thiết lập</h3>
                                 <p class="mt-1 text-sm text-neutral-500 dark:text-fg-dim">
-                                    Scan the QR code, then enter the current code from your authenticator.
+                                    Quét mã QR, sau đó nhập mã hiện tại từ ứng dụng xác thực của bạn.
                                 </p>
                             </div>
                             <form action="/user/confirmed-two-factor-authentication" method="POST"
@@ -254,8 +254,8 @@
                                 x-init="$nextTick(() => $el.querySelector('input[name=code]')?.focus())">
                                 @csrf
                                 <x-forms.input name="code" type="text" inputmode="numeric" pattern="[0-9]*" id="code"
-                                    label="One-time code" required />
-                                <x-forms.button type="submit">Validate 2FA</x-forms.button>
+                                    label="Mã một lần" required />
+                                <x-forms.button type="submit">Xác nhận 2FA</x-forms.button>
                             </form>
                             <div x-data="{ showCode: false }">
                                 <div x-cloak x-show="showCode" class="space-y-2 pb-3">
@@ -264,7 +264,7 @@
                                     <x-forms.copy-input :text="request()->user()->twoFactorQrCodeUrl()" />
                                 </div>
                                 <x-forms.button type="button" x-on:click="showCode = !showCode">
-                                    <span x-text="showCode ? 'Hide manual setup' : 'Show manual setup'"></span>
+                                    <span x-text="showCode ? 'Ẩn thiết lập thủ công' : 'Hiện thiết lập thủ công'"></span>
                                 </x-forms.button>
                             </div>
                         </div>
@@ -274,12 +274,12 @@
                         <div class="flex flex-wrap items-center justify-end gap-2">
                             <form action="/user/two-factor-recovery-codes" method="POST">
                                 @csrf
-                                <x-forms.button type="submit">Regenerate recovery codes</x-forms.button>
+                                <x-forms.button type="submit">Tạo lại mã khôi phục</x-forms.button>
                             </form>
                             <form action="/user/two-factor-authentication" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <x-forms.button type="submit" isError>Disable 2FA</x-forms.button>
+                                <x-forms.button type="submit" isError>Tắt 2FA</x-forms.button>
                             </form>
                         </div>
                         @if (session('status') === 'two-factor-authentication-confirmed'
@@ -293,8 +293,8 @@
                         @endif
                     </div>
                 @else
-                    <x-empty size="sm" title="Two-factor authentication is off"
-                        description="Configure an authenticator app to add another sign-in check."
+                    <x-empty size="sm" title="Xác thực hai yếu tố đang tắt"
+                        description="Cấu hình ứng dụng xác thực để thêm bước kiểm tra khi đăng nhập."
                         icon-name="keys" />
                 @endif
             </div>
@@ -303,23 +303,23 @@
         <section class="application-settings-section">
             <div class="application-settings-section-header">
                 <div>
-                    <h2>Danger zone</h2>
-                    <p>Destructive actions for your account cannot be undone.</p>
+                    <h2>Vùng nguy hiểm</h2>
+                    <p>Các thao tác xóa tài khoản của bạn không thể hoàn tác.</p>
                 </div>
             </div>
             <div class="application-settings-section-body">
-                <x-danger-zone title="Delete account">
+                <x-danger-zone title="Xóa tài khoản">
                     @if ($accountDeletionBlockers === [])
                         <p>
-                            Permanently delete your account from Coolify. This action cannot be undone.
+                            Xóa vĩnh viễn tài khoản của bạn khỏi Coolify. Hành động này không thể hoàn tác.
                         </p>
                         <ul class="space-y-1 text-xs">
-                            <li>• Teams where you are the only member are deleted.</li>
-                            <li>• You are removed from all other teams.</li>
-                            <li>• Your API tokens and sessions are revoked.</li>
+                            <li>• Các nhóm mà bạn là thành viên duy nhất sẽ bị xóa.</li>
+                            <li>• Bạn sẽ bị xóa khỏi tất cả các nhóm khác.</li>
+                            <li>• Mã token API và các phiên làm việc của bạn sẽ bị thu hồi.</li>
                         </ul>
                     @else
-                        <p>Before you can delete your account:</p>
+                        <p>Trước khi bạn có thể xóa tài khoản:</p>
                         <ul class="space-y-1">
                             @foreach ($accountDeletionBlockers as $blocker)
                                 <li>• {{ $blocker }}</li>
@@ -328,16 +328,16 @@
                     @endif
                     <x-slot:action>
                         @if ($accountDeletionBlockers === [])
-                            <x-modal-confirmation title="Confirm Account Deletion?" buttonTitle="Delete account"
+                            <x-modal-confirmation title="Xác nhận xóa tài khoản?" buttonTitle="Xóa tài khoản"
                                 isErrorButton submitAction="deleteAccount"
                                 :actions="$accountDeletionActions"
                                 confirmationText="{{ $email }}"
-                                confirmationLabel="Enter your email address to confirm permanent deletion"
-                                shortConfirmationLabel="Email" step3ButtonText="Permanently Delete" />
+                                confirmationLabel="Nhập địa chỉ email của bạn để xác nhận xóa vĩnh viễn"
+                                shortConfirmationLabel="Email" step3ButtonText="Xóa vĩnh viễn" />
                         @else
                             <x-forms.button isError disabled
-                                tooltip="Resolve the requirements shown before deleting your account.">
-                                Delete account
+                                tooltip="Vui lòng hoàn thành các yêu cầu được hiển thị trước khi xóa tài khoản.">
+                                Xóa tài khoản
                             </x-forms.button>
                         @endif
                     </x-slot:action>
@@ -346,8 +346,8 @@
         </section>
 
         @if (session()->has('errors'))
-            <x-callout type="danger" title="Profile update failed">
-                Something went wrong. Please review the fields and try again.
+            <x-callout type="danger" title="Cập nhật hồ sơ thất bại">
+                Đã xảy ra lỗi. Vui lòng kiểm tra lại các trường thông tin và thử lại.
             </x-callout>
         @endif
     </div>

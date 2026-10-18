@@ -84,22 +84,22 @@
         : collect();
     $currentTag = $tags->firstWhere('name', $tagName);
     $dashboardContext = match (true) {
-        request()->routeIs('dashboard') => 'Dashboard',
-        request()->routeIs('project.index') => 'Projects',
+        request()->routeIs('dashboard') => 'Bảng điều khiển',
+        request()->routeIs('project.index') => 'Dự án',
         request()->routeIs('terminal') => 'Terminal',
-        request()->routeIs('server.*') => 'Servers',
-        request()->routeIs('source.*') => 'Sources',
-        request()->routeIs('destination.*') => 'Destinations',
-        request()->routeIs('registries.*') => 'Registries',
-        request()->routeIs('storage.*') => 'S3 Storage',
-        request()->routeIs('shared-variables.*') => 'Shared Variables',
-        request()->routeIs('team.*') => 'Team',
-        request()->routeIs('notifications.*') => 'Notifications',
-        request()->routeIs('security.*') => 'Keys & Tokens',
-        request()->routeIs('tags.*') => 'Tags',
-        request()->routeIs('settings.*') => 'Settings',
-        request()->routeIs('profile*') => 'Profile',
-        request()->routeIs('admin.*') => 'Admin',
+        request()->routeIs('server.*') => 'Máy chủ',
+        request()->routeIs('source.*') => 'Nguồn Git',
+        request()->routeIs('destination.*') => 'Đích đến',
+        request()->routeIs('registries.*') => 'Registry',
+        request()->routeIs('storage.*') => 'Kho lưu trữ S3',
+        request()->routeIs('shared-variables.*') => 'Biến dùng chung',
+        request()->routeIs('team.*') => 'Nhóm',
+        request()->routeIs('notifications.*') => 'Thông báo',
+        request()->routeIs('security.*') => 'Khóa & Mã token',
+        request()->routeIs('tags.*') => 'Thẻ',
+        request()->routeIs('settings.*') => 'Cài đặt',
+        request()->routeIs('profile*') => 'Hồ sơ cá nhân',
+        request()->routeIs('admin.*') => 'Quản trị hệ thống',
         default => null,
     };
     // Workspace destinations require an active plan on cloud; unsubscribed users
@@ -107,25 +107,25 @@
     $canUseWorkspaceNav = isSubscribed() || ! isCloud();
     $pageDestinations = $canUseWorkspaceNav
         ? collect([
-            ['label' => 'Dashboard', 'href' => url('/')],
-            ['label' => 'Projects', 'href' => url('/projects')],
+            ['label' => 'Bảng điều khiển', 'href' => url('/')],
+            ['label' => 'Dự án', 'href' => url('/projects')],
             auth()->user()?->can('canAccessTerminal')
                 ? ['label' => 'Terminal', 'href' => route('terminal')]
                 : null,
-            ['label' => 'Servers', 'href' => url('/servers')],
-            ['label' => 'Sources', 'href' => route('source.all')],
-            ['label' => 'Destinations', 'href' => route('destination.index')],
+            ['label' => 'Máy chủ', 'href' => url('/servers')],
+            ['label' => 'Nguồn Git', 'href' => route('source.all')],
+            ['label' => 'Đích đến', 'href' => route('destination.index')],
             auth()->user()?->isAdmin()
-                ? ['label' => 'Registries', 'href' => route('registries.index')]
+                ? ['label' => 'Registry', 'href' => route('registries.index')]
                 : null,
-            ['label' => 'S3 Storage', 'href' => route('storage.index')],
-            ['label' => 'Shared Variables', 'href' => route('shared-variables.index')],
-            ['label' => 'Team', 'href' => route('team.index')],
-            ['label' => 'Notifications', 'href' => route('notifications.email')],
-            ['label' => 'Keys & Tokens', 'href' => route('security.private-key.index')],
-            ['label' => 'Tags', 'href' => route('tags.show')],
+            ['label' => 'Kho lưu trữ S3', 'href' => route('storage.index')],
+            ['label' => 'Biến dùng chung', 'href' => route('shared-variables.index')],
+            ['label' => 'Nhóm', 'href' => route('team.index')],
+            ['label' => 'Thông báo', 'href' => route('notifications.email')],
+            ['label' => 'Khóa & Mã token', 'href' => route('security.private-key.index')],
+            ['label' => 'Thẻ', 'href' => route('tags.show')],
             isInstanceAdmin()
-                ? ['label' => 'Settings', 'href' => route('settings.index')]
+                ? ['label' => 'Cài đặt', 'href' => route('settings.index')]
                 : null,
         ])->filter()
         : collect();

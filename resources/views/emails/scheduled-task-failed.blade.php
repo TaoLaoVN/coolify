@@ -1,9 +1,9 @@
 <x-emails.layout>
-Scheduled task ({{ $task->name }}) was FAILED with the following error:
+Tác vụ định kỳ ({{ $task->name }}) ĐÃ THẤT BẠI với lỗi sau:
 
 <pre>
 {{ $output }}
 </pre>
 
-Click [here]({{ $url }}) to view the task.
+Nhấp vào [đây]({{ $url }}) để xem tác vụ.
 </x-emails.layout>

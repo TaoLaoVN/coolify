@@ -1,19 +1,19 @@
 <div>
     <x-slot:title>
-        Integration Tokens | Coolify
+        Mã xác thực tích hợp | Coolify
     </x-slot>
 
     <x-security.settings-layout>
         <div class="application-settings-form">
-            <x-application.settings-section title="Integration tokens"
-                description="Credentials used by third-party integrations such as DNS providers and secret managers." flush>
+            <x-application.settings-section title="Mã xác thực tích hợp"
+                description="Thông tin xác thực được sử dụng bởi các tích hợp bên thứ ba như nhà cung cấp DNS và trình quản lý bí mật." flush>
                 <x-slot:actions>
                     @can('create', App\Models\IntegrationToken::class)
-                        <x-modal-input title="New Integration Token">
+                        <x-modal-input title="Mã xác thực tích hợp mới">
                             <x-slot:content>
                                 <button type="button" class="button button-highlighted">
                                     <x-reicon name="plus" class="size-3.5" />
-                                    New token
+                                    Thêm mã mới
                                 </button>
                             </x-slot:content>
                             <livewire:security.integration-token-form :modal_mode="true"
@@ -23,8 +23,8 @@
                 </x-slot:actions>
 
                 @if ($tokens->isEmpty())
-                    <x-empty title="No integration tokens"
-                        description="Add a provider token to connect a third-party integration."
+                    <x-empty title="Chưa có mã xác thực tích hợp nào"
+                        description="Thêm mã xác thực nhà cung cấp để kết nối tích hợp bên thứ ba."
                         icon-name="keys" size="sm" />
                 @else
                     <div class="divide-y divide-neutral-200 dark:divide-white/[0.07]">
@@ -45,7 +45,7 @@
                                 x-on:integration-token-deleted.window="
                                     if ($event.detail.uuid === @js($savedToken->uuid)) visible = false
                                 ">
-                            <x-modal-input title="Edit Integration Token" isFullWidth :wireIgnore="false"
+                            <x-modal-input title="Chỉnh sửa mã xác thực tích hợp" isFullWidth :wireIgnore="false"
                                 :contentClicks="false"
                                 class="border-b border-neutral-200 last:border-b-0 dark:border-white/[0.07]">
                                 <x-slot:content>
@@ -70,11 +70,11 @@
                                                     </span>
                                                 @endif
                                                 <span class="text-[11px] text-neutral-500 dark:text-fg-dim">
-                                                    {{ $savedToken->dns_zones_count }} {{ Str::plural('zone', $savedToken->dns_zones_count) }}
+                                                    {{ $savedToken->dns_zones_count }} zone
                                                 </span>
                                             @endif
                                         </div>
-                                        <button type="button" class="icon-button" title="Edit integration token"
+                                        <button type="button" class="icon-button" title="Chỉnh sửa mã xác thực tích hợp"
                                             :aria-label="`Edit ${tokenName}`" @click="modalOpen=true">
                                             <x-reicon name="settings" class="size-3.5" />
                                         </button>

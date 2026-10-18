@@ -1,22 +1,22 @@
 @php
     $settingsMenuSections = [
-        'Configuration' => [
-            ['label' => 'General', 'route' => 'settings.index', 'icon' => 'settings'],
-            ['label' => 'Advanced', 'route' => 'settings.advanced', 'icon' => 'grid'],
-            ['label' => 'Updates', 'route' => 'settings.updates', 'icon' => 'refresh3'],
+        'Cấu hình' => [
+            ['label' => 'Cài đặt chung', 'route' => 'settings.index', 'icon' => 'settings'],
+            ['label' => 'Nâng cao', 'route' => 'settings.advanced', 'icon' => 'grid'],
+            ['label' => 'Cập nhật', 'route' => 'settings.updates', 'icon' => 'refresh3'],
         ],
-        'Instance' => [
-            ['label' => 'Backup', 'route' => 'settings.backup', 'icon' => 'database'],
+        'Hệ thống' => [
+            ['label' => 'Sao lưu', 'route' => 'settings.backup', 'icon' => 'database'],
             ['label' => 'Email', 'route' => 'settings.email', 'icon' => 'mail'],
-            ['label' => 'Authentication', 'route' => 'settings.oauth', 'icon' => 'keys'],
+            ['label' => 'Xác thực', 'route' => 'settings.oauth', 'icon' => 'keys'],
         ],
     ];
 @endphp
 
 <section class="application-settings-workspace w-full max-w-none">
     <header class="settings-mobile-header xl:hidden">
-        <h1 class="settings-mobile-title">Instance Settings</h1>
-        <p class="settings-mobile-description">Configure global settings for this Coolify instance.</p>
+        <h1 class="settings-mobile-title">Cài đặt hệ thống</h1>
+        <p class="settings-mobile-description">Cấu hình các cài đặt toàn cục cho phiên bản Coolify này.</p>
     </header>
     <div class="grid min-w-0 gap-8 xl:grid-cols-[210px_minmax(0,1fr)] xl:gap-8">
         <aside class="application-settings-navigation min-w-0 xl:self-start"

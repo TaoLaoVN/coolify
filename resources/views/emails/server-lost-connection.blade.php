@@ -1,9 +1,9 @@
 <x-emails.layout>
-Coolify cannot connect to your server ({{ $name }}). Please check your server and make sure it is running.
+Coolify không thể kết nối đến máy chủ của bạn ({{ $name }}). Vui lòng kiểm tra lại máy chủ và đảm bảo máy chủ đang hoạt động.
 
-All automations & integrations are turned off!
+Tất cả các tác vụ tự động & tích hợp đã bị tạm dừng!
 
-IMPORTANT: We automatically try to revive your server and turn on all automations & integrations.
+QUAN TRỌNG: Hệ thống sẽ tự động thử kết nối lại và kích hoạt lại các tác vụ tự động khi máy chủ hoạt động trở lại.
 
-If you have any questions, please contact us.
+Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với chúng tôi.
 </x-emails.layout>

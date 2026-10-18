@@ -1,19 +1,19 @@
 <div>
     <x-slot:title>
-        Cloud-Init Scripts | Coolify
+        Kịch bản Cloud-Init | Coolify
     </x-slot>
 
     <x-security.settings-layout>
-        <x-application.settings-section title="Cloud-init scripts"
-            description="Reusable initialization scripts for cloud servers." flush>
+        <x-application.settings-section title="Kịch bản Cloud-Init"
+            description="Kịch bản khởi tạo có thể tái sử dụng cho máy chủ đám mây." flush>
         <x-slot:actions>
             @can('create', App\Models\CloudInitScript::class)
-                <x-modal-input title="New Cloud-Init Script">
+                <x-modal-input title="Kịch bản Cloud-Init mới">
                     <x-slot:content>
                         <button type="button"
                             class="button button-highlighted">
                             <x-reicon name="plus" class="size-3.5" />
-                            New script
+                            Thêm kịch bản
                         </button>
                     </x-slot:content>
                     <livewire:security.cloud-init-script-form />
@@ -23,19 +23,19 @@
 
 
             @if ($scripts->isEmpty())
-                <x-empty title="No cloud-init scripts"
-                    description="Create a script to reuse it during server provisioning."
+                <x-empty title="Chưa có kịch bản Cloud-Init nào"
+                    description="Tạo kịch bản để tái sử dụng trong quá trình khởi tạo máy chủ."
                     icon-name="file-content" size="sm" />
             @else
                 <div>
                     <div class="grid grid-cols-[minmax(0,1fr)_12rem_1.75rem] items-center gap-3 border-b border-neutral-200 bg-neutral-50 px-4 py-2.5 text-[13px] font-medium text-neutral-500 dark:border-white/[0.08] dark:bg-white/[0.05] dark:text-fg-faint">
-                        <div class="pl-11">Script</div>
-                        <div>Last updated</div>
+                        <div class="pl-11">Kịch bản</div>
+                        <div>Cập nhật lần cuối</div>
                         <div class="w-7"></div>
                     </div>
                     @foreach ($scripts as $script)
                         @can('view', $script)
-                            <x-modal-input title="Edit Cloud-Init Script" isFullWidth :wireIgnore="false" :contentClicks="false"
+                            <x-modal-input title="Chỉnh sửa kịch bản Cloud-Init" isFullWidth :wireIgnore="false" :contentClicks="false"
                                 wire:key="cloud-init-script-{{ $script->id }}"
                                 class="border-b border-neutral-200 last:border-b-0 dark:border-white/[0.07]">
                                 <x-slot:content>
@@ -56,10 +56,10 @@
                                 </div>
                                 <div class="flex items-center">
                                     <span class="text-[10px] text-neutral-400 dark:text-fg-faint">
-                                        Updated {{ $script->updated_at->diffForHumans() }}
+                                        Cập nhật {{ $script->updated_at->diffForHumans() }}
                                     </span>
                                 </div>
-                                <button type="button" class="icon-button" title="Edit cloud-init script"
+                                <button type="button" class="icon-button" title="Chỉnh sửa kịch bản Cloud-Init"
                                     aria-label="Edit {{ $script->name }}" @click="modalOpen=true">
                                     <x-reicon name="settings" class="size-3.5" />
                                 </button>

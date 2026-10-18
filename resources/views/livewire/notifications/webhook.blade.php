@@ -1,6 +1,6 @@
 <div>
     <x-slot:title>
-        Webhook Notifications | Coolify
+        Thông báo Webhook | Coolify
     </x-slot>
 
     <x-notification.settings-layout>
@@ -8,7 +8,7 @@
         <form wire:submit="submit">
             <x-unsaved-bar action="submit" />
             <x-application.settings-section title="Webhook"
-                description="Send JSON event payloads to your own HTTP endpoint.">
+                description="Gửi dữ liệu sự kiện định dạng JSON đến endpoint HTTP của bạn.">
                 <x-slot:actions>
                     <x-notification.channel-actions :enabled="$webhookEnabled" enabledProperty="webhookEnabled"
                         toggleMethod="instantSaveWebhookEnabled" :canUpdate="auth()->user()->can('update', $settings)"
@@ -19,9 +19,9 @@
                     <div class="lg:col-span-2">
                         @can('update', $settings)
                             <x-forms.input type="password" required id="webhookUrl" label="Webhook URL"
-                                helper="Coolify sends POST requests to this HTTP or HTTPS endpoint." />
+                                helper="Coolify sẽ gửi các yêu cầu POST đến endpoint HTTP hoặc HTTPS này." />
                         @else
-                            <x-forms.input disabled label="Webhook URL" value="Hidden (only admins can view)" />
+                            <x-forms.input disabled label="Webhook URL" value="Đã ẩn (chỉ quản trị viên mới xem được)" />
                         @endcan
                     </div>
                 </div>

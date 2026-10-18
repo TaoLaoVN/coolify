@@ -107,14 +107,14 @@
                                 </div>
                                 <div class="min-w-0">
                                     <h2 class="text-[15px]! leading-5! font-semibold! text-black dark:text-fg">
-                                        Cannot connect to real-time service
+                                        Không thể kết nối đến dịch vụ thời gian thực
                                     </h2>
                                     <p class="mt-1 text-[12px] leading-5 text-neutral-500 dark:text-fg-dim">
-                                        This will cause unusual problems on the UI. Open the
+                                        Điều này sẽ gây ra sự cố bất thường trên giao diện. Vui lòng mở các
                                         <a class="font-medium text-coollabs underline decoration-coollabs/30 underline-offset-2 transition-colors hover:text-coollabs-100 dark:text-warning dark:decoration-warning/30 dark:hover:text-warning/90"
                                             href="https://coolify.io/docs/knowledge-base/server/firewall"
-                                            target="_blank" rel="noopener noreferrer">required ports</a>
-                                        or get help on
+                                            target="_blank" rel="noopener noreferrer">cổng bắt buộc</a>
+                                        hoặc nhận trợ giúp trên
                                         <a class="font-medium text-coollabs underline decoration-coollabs/30 underline-offset-2 transition-colors hover:text-coollabs-100 dark:text-warning dark:decoration-warning/30 dark:hover:text-warning/90"
                                             href="https://coollabs.io/discord" target="_blank"
                                             rel="noopener noreferrer">Discord</a>.
@@ -126,12 +126,12 @@
                                 <a target="_blank" rel="noopener noreferrer"
                                     href="https://coolify.io/docs/knowledge-base/server/firewall"
                                     class="button h-9 justify-center sm:min-w-28">
-                                    View docs
+                                    Xem tài liệu
                                 </a>
                                 <button type="button"
                                     class="button h-9 justify-center bg-red-600! text-white! ring-1 ring-red-600/25 hover:bg-red-700! sm:min-w-40 dark:bg-red-500! dark:ring-red-500/30 dark:hover:bg-red-400!"
                                     @click="bannerVisible=false;disableRealtime()">
-                                    Acknowledge &amp; disable
+                                    Đã hiểu &amp; tắt cảnh báo
                                 </button>
                             </div>
                         </div>
@@ -160,13 +160,12 @@
                             </div>
                             <div class="min-w-0">
                                 <h2 class="text-[15px]! leading-5! font-semibold! text-black dark:text-fg">
-                                    Love Coolify? Support our work.
+                                    Yêu thích Coolify? Hãy ủng hộ chúng tôi.
                                 </h2>
                                 <p x-show="!reminders.sponsorship.compact" x-transition.opacity
                                     class="mt-1 text-[12px] leading-5 text-neutral-500 dark:text-fg-dim">
-                                    Coolify is profitable thanks to <span
-                                        class="font-semibold text-coollabs dark:text-warning">you</span>. Your support
-                                    helps us build more features and keep improving the project.
+                                    Coolify phát triển được là nhờ <span
+                                         class="font-semibold text-coollabs dark:text-warning">bạn</span>. Sự ủng hộ của bạn giúp chúng tôi phát triển thêm nhiều tính năng và tiếp tục cải tiến dự án.
                                 </p>
                             </div>
                         </div>
@@ -189,7 +188,7 @@
                             <button x-show="!reminders.sponsorship.compact" x-transition.opacity type="button"
                                 class="h-9 cursor-pointer px-2 text-[12px] font-medium text-neutral-500 transition-colors hover:text-black sm:shrink-0 dark:text-fg-dim dark:hover:text-fg"
                                 @click="bannerVisible=false;disableSponsorship()">
-                                Maybe next time
+                                Để sau
                             </button>
                         </div>
                     </div>
@@ -205,38 +204,29 @@
                         d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
                         clip-rule="evenodd" />
                 </svg>
-                <span><span class="font-bold text-red-500">Subscription Error.</span> Something went wrong. Please try
-                    again or <a class="underline dark:text-white"
-                        href="{{ config('constants.urls.contact') }}" target="_blank">contact support</a>.</span>
+                <span><span class="font-bold text-red-500">Lỗi gói đăng ký.</span> Đã xảy ra sự cố. Vui lòng thử lại hoặc <a class="underline dark:text-white"
+                        href="{{ config('constants.urls.contact') }}" target="_blank">liên hệ hỗ trợ</a>.</span>
             </div>
         </x-banner>
     @endif
     @if (request()->query->get('success'))
-        <span x-init="$nextTick(() => window.toast('Welcome onboard!', {
+        <span x-init="$nextTick(() => window.toast('Chào mừng bạn!', {
             type: 'success',
-            description: 'Your subscription has been activated. It could take a few seconds before it is fully active.',
+            description: 'Gói đăng ký của bạn đã được kích hoạt. Có thể mất vài giây trước khi có hiệu lực đầy đủ.',
             persistent: true,
         }))"></span>
     @endif
     @if (currentTeam()->subscriptionPastOverDue())
         <x-banner :closable=false>
-            <div><span class="font-bold text-red-500">WARNING:</span> Your subscription is in over-due. If your
-                latest
-                payment is not paid within a week, all automations <span class="font-bold text-red-500">will
-                    be deactivated</span>. Visit <a href="{{ route('subscription.show') }}" {{ wireNavigate() }}
-                    class="underline dark:text-white">/subscription</a> to check your subscription status or pay
-                your
-                invoice (or check your email for the invoice).
+            <div><span class="font-bold text-red-500">CẢNH BÁO:</span> Gói đăng ký của bạn đã quá hạn. Nếu khoản thanh toán mới nhất không được thanh toán trong vòng một tuần, tất cả các tác vụ tự động <span class="font-bold text-red-500">sẽ bị vô hiệu hóa</span>. Truy cập <a href="{{ route('subscription.show') }}" {{ wireNavigate() }}
+                    class="underline dark:text-white">/subscription</a> để kiểm tra trạng thái đăng ký hoặc thanh toán hóa đơn.
             </div>
         </x-banner>
     @endif
     @if (currentTeam()->serverOverflow())
         <x-banner :closable=false>
-            <div><span class="font-bold text-red-500">WARNING:</span> The number of active servers exceeds the limit
-                covered by your payment. If not resolved, some of your servers <span class="font-bold text-red-500">will
-                    be deactivated</span>. Visit <a href="{{ route('subscription.show') }}" {{ wireNavigate() }}
-                    class="underline dark:text-white">/subscription</a> to update your subscription or remove some
-                servers.
+            <div><span class="font-bold text-red-500">CẢNH BÁO:</span> Số lượng máy chủ hoạt động vượt quá giới hạn trong gói thanh toán. Nếu không khắc phục, một số máy chủ của bạn <span class="font-bold text-red-500">sẽ bị vô hiệu hóa</span>. Truy cập <a href="{{ route('subscription.show') }}" {{ wireNavigate() }}
+                    class="underline dark:text-white">/subscription</a> để cập nhật gói hoặc gỡ bỏ bớt máy chủ.
             </div>
         </x-banner>
     @endif
@@ -259,15 +249,15 @@
                             </div>
                             <div class="min-w-0">
                                 <h2 class="text-[15px]! leading-5! font-semibold! text-black dark:text-fg">
-                                    No notifications enabled
+                                    Chưa bật kênh thông báo nào
                                 </h2>
                                 <p x-show="!reminders.notification.compact" x-transition.opacity
                                     class="mt-1 text-[12px] leading-5 text-neutral-500 dark:text-fg-dim">
-                                    Enable at least one notification channel so you receive important alerts.
-                                    Visit
+                                    Hãy bật ít nhất một kênh thông báo để bạn nhận được các cảnh báo quan trọng.
+                                    Truy cập
                                     <a href="{{ route('notifications.email') }}" {{ wireNavigate() }}
-                                        class="font-medium text-coollabs underline decoration-coollabs/30 underline-offset-2 transition-colors hover:text-coollabs-100 dark:text-warning dark:decoration-warning/30 dark:hover:text-warning/90">notifications</a>
-                                    to get started.
+                                        class="font-medium text-coollabs underline decoration-coollabs/30 underline-offset-2 transition-colors hover:text-coollabs-100 dark:text-warning dark:decoration-warning/30 dark:hover:text-warning/90">cài đặt thông báo</a>
+                                    để bắt đầu.
                                 </p>
                             </div>
                         </div>
@@ -275,12 +265,12 @@
                         <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
                             <a href="{{ route('notifications.email') }}" {{ wireNavigate() }}
                                 class="button h-9 justify-center sm:min-w-28">
-                                Open notifications
+                                Cài đặt thông báo
                             </a>
                             <button x-show="!reminders.notification.compact" x-transition.opacity type="button"
                                 class="button h-9 justify-center sm:min-w-32"
                                 @click="bannerVisible=false;disableNotification()">
-                                Accept and close
+                                Đã hiểu và đóng
                             </button>
                         </div>
                     </div>

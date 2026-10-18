@@ -60,7 +60,7 @@ class Test extends Notification implements ShouldQueue
     public function toMail(): MailMessage
     {
         $mail = new MailMessage;
-        $mail->subject('Coolify: Test Email');
+        $mail->subject('Coolify: Thư thử nghiệm (Test Email)');
         $mail->view('emails.test');
 
         return $mail;
@@ -69,13 +69,13 @@ class Test extends Notification implements ShouldQueue
     public function toDiscord(): DiscordMessage
     {
         $message = new DiscordMessage(
-            title: ':white_check_mark: Test Success',
-            description: 'This is a test Discord notification from Coolify. :cross_mark: :warning: :information_source:',
+            title: ':white_check_mark: Thử nghiệm thành công',
+            description: 'Đây là thông báo Discord thử nghiệm từ Coolify. :cross_mark: :warning: :information_source:',
             color: DiscordMessage::successColor(),
             isCritical: $this->ping,
         );
 
-        $message->addField(name: 'Dashboard', value: '[Link]('.base_url().')', inline: true);
+        $message->addField(name: 'Bảng điều khiển', value: '[Link]('.base_url().')', inline: true);
 
         return $message;
     }
@@ -83,10 +83,10 @@ class Test extends Notification implements ShouldQueue
     public function toTelegram(): array
     {
         return [
-            'message' => 'Coolify: This is a test Telegram notification from Coolify.',
+            'message' => 'Coolify: Đây là thông báo Telegram thử nghiệm từ Coolify.',
             'buttons' => [
                 [
-                    'text' => 'Go to your dashboard',
+                    'text' => 'Đi đến bảng điều khiển',
                     'url' => isDev() ? 'https://staging-but-dev.coolify.io' : base_url(),
                 ],
             ],
@@ -96,11 +96,11 @@ class Test extends Notification implements ShouldQueue
     public function toPushover(): PushoverMessage
     {
         return new PushoverMessage(
-            title: 'Test Pushover Notification',
-            message: 'This is a test Pushover notification from Coolify.',
+            title: 'Thông báo Pushover thử nghiệm',
+            message: 'Đây là thông báo Pushover thử nghiệm từ Coolify.',
             buttons: [
                 [
-                    'text' => 'Go to your dashboard',
+                    'text' => 'Đi đến bảng điều khiển',
                     'url' => base_url(),
                 ],
             ],
@@ -110,8 +110,8 @@ class Test extends Notification implements ShouldQueue
     public function toSlack(): SlackMessage
     {
         return new SlackMessage(
-            title: 'Test Slack Notification',
-            description: 'This is a test Slack notification from Coolify.'
+            title: 'Thông báo Slack thử nghiệm',
+            description: 'Đây là thông báo Slack thử nghiệm từ Coolify.'
         );
     }
 
@@ -119,7 +119,7 @@ class Test extends Notification implements ShouldQueue
     {
         return [
             'success' => true,
-            'message' => 'This is a test webhook notification from Coolify.',
+            'message' => 'Đây là thông báo webhook thử nghiệm từ Coolify.',
             'event' => 'test',
             'url' => base_url(),
         ];

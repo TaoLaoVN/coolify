@@ -1,3 +1,3 @@
 <x-emails.layout>
-If you are seeing this, it means that your Email settings are correct.
+Nếu bạn nhìn thấy thư này, điều đó có nghĩa là cài đặt Email của bạn đã hoàn toàn chính xác.
 </x-emails.layout>

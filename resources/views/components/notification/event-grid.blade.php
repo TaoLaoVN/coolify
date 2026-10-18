@@ -6,38 +6,38 @@
 
 @php
     $eventGroups = [
-        'Deployments' => [
-            ['key' => 'deploymentSuccess', 'label' => 'Deployment success'],
-            ['key' => 'deploymentFailure', 'label' => 'Deployment failure'],
+        'Triển khai' => [
+            ['key' => 'deploymentSuccess', 'label' => 'Triển khai thành công'],
+            ['key' => 'deploymentFailure', 'label' => 'Triển khai thất bại'],
         ],
-        'Resources' => [
+        'Tài nguyên' => [
             [
                 'key' => 'statusChange',
-                'label' => 'Resource status changes',
-                'helper' => 'Notify when a resource stops or Coolify automatically restarts it.',
+                'label' => 'Thay đổi trạng thái tài nguyên',
+                'helper' => 'Thông báo khi tài nguyên dừng hoạt động hoặc khi Coolify tự động khởi động lại.',
             ],
             [
                 'key' => 'restartLimitReached',
-                'label' => 'Restart limit reached',
-                'helper' => 'Notify when a resource is stopped after reaching its restart limit.',
+                'label' => 'Đạt giới hạn khởi động lại',
+                'helper' => 'Thông báo khi tài nguyên bị dừng sau khi đạt số lần khởi động lại tối đa.',
             ],
         ],
-        'Backups' => [
-            ['key' => 'backupSuccess', 'label' => 'Backup success'],
-            ['key' => 'backupFailure', 'label' => 'Backup failure'],
+        'Sao lưu' => [
+            ['key' => 'backupSuccess', 'label' => 'Sao lưu thành công'],
+            ['key' => 'backupFailure', 'label' => 'Sao lưu thất bại'],
         ],
-        'Scheduled tasks' => [
-            ['key' => 'scheduledTaskSuccess', 'label' => 'Scheduled task success'],
-            ['key' => 'scheduledTaskFailure', 'label' => 'Scheduled task failure'],
+        'Tác vụ định kỳ' => [
+            ['key' => 'scheduledTaskSuccess', 'label' => 'Tác vụ định kỳ thành công'],
+            ['key' => 'scheduledTaskFailure', 'label' => 'Tác vụ định kỳ thất bại'],
         ],
-        'Servers' => [
-            ['key' => 'dockerCleanupSuccess', 'label' => 'Docker cleanup success'],
-            ['key' => 'dockerCleanupFailure', 'label' => 'Docker cleanup failure'],
-            ['key' => 'serverDiskUsage', 'label' => 'Disk usage warning'],
-            ['key' => 'serverReachable', 'label' => 'Server reachable'],
-            ['key' => 'serverUnreachable', 'label' => 'Server unreachable'],
-            ['key' => 'serverPatch', 'label' => 'Server patching'],
-            ['key' => 'traefikOutdated', 'label' => 'Traefik proxy outdated'],
+        'Máy chủ' => [
+            ['key' => 'dockerCleanupSuccess', 'label' => 'Dọn dẹp Docker thành công'],
+            ['key' => 'dockerCleanupFailure', 'label' => 'Dọn dẹp Docker thất bại'],
+            ['key' => 'serverDiskUsage', 'label' => 'Cảnh báo dung lượng ổ đĩa'],
+            ['key' => 'serverReachable', 'label' => 'Máy chủ kết nối được'],
+            ['key' => 'serverUnreachable', 'label' => 'Mất kết nối máy chủ'],
+            ['key' => 'serverPatch', 'label' => 'Bản vá máy chủ'],
+            ['key' => 'traefikOutdated', 'label' => 'Proxy Traefik đã cũ'],
         ],
     ];
 
@@ -70,8 +70,8 @@
 @endphp
 
 <div class="flex flex-col gap-6">
-    <x-application.settings-section title="Notification events"
-        description="Choose which events send a notification on this channel.">
+    <x-application.settings-section title="Sự kiện thông báo"
+        description="Chọn các sự kiện sẽ gửi thông báo qua kênh này.">
         <div class="grid gap-4 lg:grid-cols-2">
             @foreach ($eventGroups as $group => $events)
                 @php
@@ -96,11 +96,11 @@
     </x-application.settings-section>
 
     @if ($threaded)
-        <x-application.settings-section title="Forum topics"
-            description="Optional. Route enabled events to a Telegram forum topic using its message thread ID. Leave blank to post in the main chat.">
+        <x-application.settings-section title="Chủ đề diễn đàn (Forum topics)"
+            description="Tùy chọn. Điều hướng các sự kiện đã bật đến chủ đề diễn đàn Telegram bằng ID luồng tin nhắn (thread ID). Để trống để gửi vào nhóm chat chính.">
             @if ($enabledThreadEvents === [])
                 <p class="text-[13px] leading-relaxed text-neutral-500 dark:text-fg-dim">
-                    Enable one or more events above to assign forum topic IDs.
+                    Bật một hoặc nhiều sự kiện ở trên để gán ID chủ đề diễn đàn.
                 </p>
             @else
                 <div class="flex flex-col gap-5">
@@ -128,7 +128,7 @@
                                         <x-forms.input wire:key="{{ $channel }}-thread-{{ $event['key'] }}"
                                             canGate="update" :canResource="$settings" type="password"
                                             :id="$event['threadModel']" :label="null"
-                                            :placeholder="'Optional'"
+                                            :placeholder="'Tùy chọn'"
                                             :aria-label="$event['label'] . ' topic ID'" />
                                     </div>
                                 @endforeach

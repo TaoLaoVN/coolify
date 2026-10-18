@@ -27,12 +27,12 @@
                 .then(() => { enabled = Boolean($wire.$get(enabledProperty)); })
                 .catch(() => { enabled = !next; });
         ">
-        <span x-text="enabled ? 'Disable' : 'Enable'">{{ $enabled ? 'Disable' : 'Enable' }}</span>
+        <span x-text="enabled ? 'Vô hiệu hóa' : 'Kích hoạt'">{{ $enabled ? 'Vô hiệu hóa' : 'Kích hoạt' }}</span>
     </x-forms.button>
     <x-forms.button type="button" :disabled="!$enabled" :canGate="$canResource ? 'sendTest' : null"
         :canResource="$canResource"
         x-on:click="if ($el.closest('form').reportValidity()) $wire.$call(testMethod)">
         <x-reicon name="notifications" class="size-3.5" />
-        Send test
+        Gửi thử nghiệm
     </x-forms.button>
 </div>
