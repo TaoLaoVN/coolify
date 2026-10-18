@@ -12,12 +12,12 @@ $email = getOldOrLocal('email', 'test3@example.com');
 
 <x-layout-simple>
     <x-auth.shell title="Coolify"
-        :description="$isFirstUser ? 'Create the root account for this instance.' : 'Create your account to get started.'">
+        :description="$isFirstUser ? 'Tạo tài khoản quản trị viên gốc (root) cho máy chủ này.' : 'Tạo tài khoản của bạn để bắt đầu.'">
         <div class="flex flex-col gap-4">
             @if ($isFirstUser)
                 <x-auth.alert type="warning">
-                    <p class="font-medium">Full instance access</p>
-                    <p class="mt-0.5 text-black/70 dark:text-white/70">This first account becomes the root user.</p>
+                    <p class="font-medium">Toàn quyền quản trị máy chủ</p>
+                    <p class="mt-0.5 text-black/70 dark:text-white/70">Tài khoản đầu tiên này sẽ trở thành tài khoản quản trị gốc (root user).</p>
                 </x-auth.alert>
             @endif
 
@@ -44,18 +44,18 @@ $email = getOldOrLocal('email', 'test3@example.com');
 
                 <div class="auth-guidance">
                     <x-reicon name="info-circle" class="mt-0.5 size-4 shrink-0" />
-                    <p>Use at least 8 characters with uppercase, lowercase, number, and symbol.</p>
+                    <p>Sử dụng ít nhất 8 ký tự bao gồm chữ hoa, chữ thường, chữ số và ký hiệu.</p>
                 </div>
 
                 <x-forms.button class="w-full justify-center" type="submit" isHighlighted>
-                    Create account
+                    Tạo tài khoản
                 </x-forms.button>
             </form>
         </div>
 
         @if (! $isFirstUser)
             <x-slot:footer>
-                <span>Already have an account?</span>
+                <span>Đã có tài khoản?</span>
                 <a href="{{ route('login') }}"
                     class="auth-text-link underline">{{ __('auth.already_registered') }}</a>
             </x-slot:footer>
